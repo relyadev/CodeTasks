@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script type="importmap">
+        {
+            "imports": {
+                "@material/web/": "https://esm.run/@material/web/"
+            }
+        }
+    </script>
+    <script type="module">
+        import '@material/web/all.js';
+        import {styles as typescaleStyles} from '@material/web/typography/md-typescale-styles.js';
+        document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+    </script>
+    <style>
+        :root {
+            --md-sys-color-primary: #8551c6;
+            --md-sys-color-on-primary: #000000;
+            --md-sys-color-primary-container: #3700b3;
+            --md-sys-color-secondary: #03dac6;
+            --md-sys-color-surface: #1f1f1f;
+            --md-sys-color-on-surface: #e1e1e1;
+            --md-sys-color-error: #cf6679;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #121212;
+            padding: 16px;
+            box-sizing: border-box;
+            font-size: 18px; /* Базовый размер шрифта увеличен */
+        }
+
+        .login-form {
+            background: #1f1f1f;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 550px;
+            color: #e1e1e1;
+            box-sizing: border-box;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #bb86fc;
+            font-size: 2.8rem; /* Увеличен для мобильных */
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem; /* Увеличен отступ */
+            width: 100%;
+        }
+
+        .error-message {
+            color: #cf6679;
+            margin-top: 0.8rem; /* Увеличен отступ */
+            font-size: 1rem; /* Увеличен размер */
+        }
+
+        .non-field-errors {
+            color: #cf6679;
+            margin-bottom: 1.8rem; /* Увеличен отступ */
+            padding: 1rem; /* Увеличен padding */
+            background-color: rgba(207, 102, 121, 0.1);
+            border-radius: 8px;
+            font-size: 1rem; /* Увеличен размер */
+        }
+
+        md-outlined-text-field {
+            width: 100%;
+            --md-outlined-text-field-container-shape: 12px;
+            --md-outlined-text-field-container-height: 60px; /* Высота увеличена */
+            --md-outlined-text-field-label-text-size: 1.1rem; /* Размер увеличен */
+            --md-outlined-text-field-input-text-size: 1.2rem; /* Размер увеличен */
+            --md-outlined-text-field-outline-color: #666;
+            --md-outlined-text-field-hover-outline-color: #bb86fc;
+            --md-outlined-text-field-focus-outline-color: #bb86fc;
+            --md-outlined-text-field-label-text-color: #999;
+            --md-outlined-text-field-input-text-color: #fff;
+            --md-outlined-text-field-error-outline-color: #cf6679;
+            --md-outlined-text-field-error-focus-outline-color: #cf6679;
+            --md-outlined-text-field-error-hover-outline-color: #cf6679;
+        }
+
+        md-checkbox {
+            --md-checkbox-unselected-icon-color: #666;
+            --md-checkbox-selected-icon-color: #bb86fc;
+            --md-checkbox-selected-focus-icon-color: #bb86fc;
+            --md-checkbox-selected-hover-icon-color: #bb86fc;
+            --md-checkbox-selected-pressed-icon-color: #bb86fc;
+        }
+
+        .submit-btn {
+            margin-top: 2rem;
+            width: 100%;
+            --md-filled-button-container-shape: 12px;
+            --md-filled-button-container-height: 60px; /* Высота увеличена */
+            --md-filled-button-label-text-size: 1.2rem; /* Размер увеличен */
+            --md-filled-button-container-color: #bb86fc;
+            --md-filled-button-label-text-color: #000;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Увеличен gap */
+            margin: 1.2rem 0; /* Увеличен отступ */
+            color: #e1e1e1;
+            font-size: 1.1rem; /* Размер увеличен */
+        }
+
+        .form-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem; /* Увеличен gap */
+            margin-top: 2rem; /* Увеличен отступ */
+            text-align: center;
+        }
+
+        .form-link {
+            color: #bb86fc;
+            text-decoration: none;
+            font-size: 1.1rem; /* Размер увеличен */
+            transition: color 0.2s;
+            padding: 0.5rem; /* Добавлен padding для лучшего тапа */
+        }
+
+        .form-link:hover {
+            color: #d0a2ff;
+            text-decoration: underline;
+        }
+
+        /* Медиа-запросы для адаптивности */
+        @media (min-width: 480px) {
+            .form-title {
+                font-size: 3.2rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .form-footer {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+                gap: 0.1rem;
+            }
+        }
+
+        @media (min-width: 600px) {
+            .login-form {
+                padding: 2.5rem;
+            }
+
+            .form-title {
+                font-size: 3.5rem;
+                margin-bottom: 3rem;
+            }
+
+            md-outlined-text-field {
+                --md-outlined-text-field-container-height: 64px;
+                --md-outlined-text-field-label-text-size: 1.15rem;
+                --md-outlined-text-field-input-text-size: 1.25rem;
+            }
+
+            .submit-btn {
+                --md-filled-button-container-height: 64px;
+                --md-filled-button-label-text-size: 1.25rem;
+            }
+
+            .remember-me {
+                font-size: 1.15rem;
+            }
+
+            .form-link {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            /* Дополнительные корректировки для очень маленьких экранов */
+            .login-form {
+                padding: 1.5rem;
+            }
+
+            .form-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-height: 700px) {
+            body {
+                align-items: flex-start;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Остальное содержимое без изменений -->
+    <div class="login-form">
+        <h1 class="form-title md-typescale-display-medium">Вход</h1>
+
+        {% if form.non_field_errors %}
+            <div class="non-field-errors">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <md-outlined-text-field
+                    label="Имя пользователя"
+                    name="username"
+                    id="id_username"
+                    {% if form.username.errors %}error{% endif %}
+                    required>
+                </md-outlined-text-field>
+                {% if form.username.errors %}
+                    <div class="error-message">
+                        {% for error in form.username.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <md-outlined-text-field
+                    label="Пароль"
+                    name="password"
+                    id="id_password"
+                    type="password"
+                    {% if form.password.errors %}error{% endif %}
+                    required>
+                </md-outlined-text-field>
+                {% if form.password.errors %}
+                    <div class="error-message">
+                        {% for error in form.password.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="remember-me">
+                <md-checkbox></md-checkbox>
+                <span>Запомнить меня</span>
+            </div>
+
+            <md-filled-button type="submit" class="submit-btn">
+                Войти
+            </md-filled-button>
+
+            <div class="form-footer">
+                <a href="password_reset/" class="form-link">Забыли пароль?</a>
+                <a href="{% url 'register' %}" class="form-link">Регистрация</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

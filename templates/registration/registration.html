@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script type="importmap">
+        {
+            "imports": {
+                "@material/web/": "https://esm.run/@material/web/"
+            }
+        }
+    </script>
+    <script type="module">
+        import '@material/web/all.js';
+        import {styles as typescaleStyles} from '@material/web/typography/md-typescale-styles.js';
+        document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+    </script>
+    <style>
+        :root {
+            --md-sys-color-primary: #bb86fc;
+            --md-sys-color-on-primary: #000000;
+            --md-sys-color-primary-container: #3700b3;
+            --md-sys-color-secondary: #03dac6;
+            --md-sys-color-surface: #1f1f1f;
+            --md-sys-color-on-surface: #e1e1e1;
+            --md-sys-color-error: #cf6679;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #121212;
+        }
+        .register-form {
+            background: #1f1f1f;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 550px;
+            color: #e1e1e1;
+        }
+        .form-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #bb86fc;
+            font-size: 3.5rem;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+        }
+        .form-group {
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+        .error-message {
+            color: #cf6679;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .non-field-errors {
+            color: #cf6679;
+            margin-bottom: 1.5rem;
+            padding: 0.75rem;
+            background-color: rgba(207, 102, 121, 0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        md-outlined-text-field {
+            width: 100%;
+            --md-outlined-text-field-container-shape: 12px;
+            --md-outlined-text-field-container-height: 60px;
+            --md-outlined-text-field-label-text-size: 1.1rem;
+            --md-outlined-text-field-input-text-size: 1.2rem;
+            --md-outlined-text-field-outline-color: #666;
+            --md-outlined-text-field-hover-outline-color: #bb86fc;
+            --md-outlined-text-field-focus-outline-color: #bb86fc;
+            --md-outlined-text-field-label-text-color: #999;
+            --md-outlined-text-field-input-text-color: #fff;
+            --md-outlined-text-field-error-outline-color: #cf6679;
+            --md-outlined-text-field-error-focus-outline-color: #cf6679;
+            --md-outlined-text-field-error-hover-outline-color: #cf6679;
+        }
+        .submit-btn {
+            margin-top: 2rem;
+            width: 100%;
+            --md-filled-button-container-shape: 12px;
+            --md-filled-button-container-height: 60px;
+            --md-filled-button-label-text-size: 1.2rem;
+            --md-filled-button-container-color: #bb86fc;
+            --md-filled-button-label-text-color: #000;
+        }
+        .form-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .form-link {
+            color: #bb86fc;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .form-link:hover {
+            color: #d0a2ff;
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="register-form">
+        <h1 class="form-title md-typescale-display-medium">Регистрация</h1>
+
+        {% if form.non_field_errors %}
+            <div class="non-field-errors">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <md-outlined-text-field
+                    label="{{ form.username.label }}"
+                    name="{{ form.username.name }}"
+                    id="{{ form.username.id_for_label }}"
+                    {% if form.username.errors %}error{% endif %}
+                    required>
+                </md-outlined-text-field>
+                {% if form.username.errors %}
+                    <div class="error-message">
+                        {{ form.username.errors.as_text }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <md-outlined-text-field
+                    label="{{ form.email.label }}"
+                    name="{{ form.email.name }}"
+                    id="{{ form.email.id_for_label }}"
+                    type="email"
+                    {% if form.email.errors %}error{% endif %}
+                    required>
+                </md-outlined-text-field>
+                {% if form.email.errors %}
+                    <div class="error-message">
+                        {{ form.email.errors.as_text }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <md-outlined-text-field
+                    label="{{ form.password.label }}"
+                    name="{{ form.password.name }}"
+                    id="{{ form.password.id_for_label }}"
+                    type="password"
+                    {% if form.password.errors %}error{% endif %}
+                    required>
+                </md-outlined-text-field>
+                {% if form.password.errors %}
+                    <div class="error-message">
+                        {{ form.password.errors.as_text }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <md-outlined-text-field
+                    label="{{ form.password_confirm.label }}"
+                    name="{{ form.password_confirm.name }}"
+                    id="{{ form.password_confirm.id_for_label }}"
+                    type="password"
+                    {% if form.password_confirm.errors %}error{% endif %}
+                    required>
+                </md-outlined-text-field>
+                {% if form.password_confirm.errors %}
+                    <div class="error-message">
+                        {{ form.password_confirm.errors.as_text }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <md-filled-button type="submit" class="submit-btn">
+                Зарегистрироваться
+            </md-filled-button>
+
+            <div class="form-footer">
+                <span>Уже есть аккаунт? </span>
+                <a href="{% url 'login' %}" class="form-link">Войти</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
