@@ -131,12 +131,19 @@
         background: var(--task-color);
     }
 
+    .task-title-wrapper {
+        display: flex;
+        align-items: flex-start; /* Выравнивание по верхнему краю */
+        gap: 12px; /* Расстояние между точкой и текстом */
+        margin-bottom: 15px;
+    }
+
     .task-title {
         font-size: 1.4rem;
         font-weight: 600;
-        margin: 0 0 15px 0;
+        margin: 0;
         color: var(--md-sys-color-on-surface);
-        padding-left: 15px;
+        flex-grow: 1; /* Занимает всё доступное пространство */
     }
 
     .task-meta {
@@ -159,12 +166,6 @@
         border-radius: 12px;
         font-size: 0.9rem;
         font-weight: 500;
-    }
-
-    .complexity-dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 6px;
     }
 
     .empty-tasks {
@@ -301,12 +302,12 @@
         line-height: 1.3;
     }
 
-    /* Цвета для сложности */
-    .complexity-1 { background-color: #4CAF50; } /* Easy */
-    .complexity-2 { background-color: #FFC107; } /* Medium */
-    .complexity-3 { background-color: #FF9800; } /* Hard */
-    .complexity-4 { background-color: #F44336; } /* Extreme */
-    .complexity-5 { background-color: #9C27B0; } /* Hardcore */
+    /* Цвета для сложности (согласно модели) */
+    .complexity-0 { background-color: #4CAF50; } /* Easy */
+    .complexity-1 { background-color: #FFC107; } /* Medium */
+    .complexity-2 { background-color: #FF9800; } /* Hard */
+    .complexity-3 { background-color: #9C27B0; } /* Extreme */
+    .complexity-4 { background-color: #F44336; } /* Hardcore */
 
     /* Адаптивность */
     @media (max-width: 992px) {
@@ -377,24 +378,24 @@
             </div>
             <div class="chart-legend">
                 <div class="legend-item">
+                    <div class="legend-color complexity-0"></div>
+                    <div class="legend-label">Easy<br>({{ complexity_distribution.0 }})</div>
+                </div>
+                <div class="legend-item">
                     <div class="legend-color complexity-1"></div>
-                    <div class="legend-label">Easy<br>({{ complexity_distribution.1 }})</div>
+                    <div class="legend-label">Medium<br>({{ complexity_distribution.1 }})</div>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color complexity-2"></div>
-                    <div class="legend-label">Medium<br>({{ complexity_distribution.2 }})</div>
+                    <div class="legend-label">Hard<br>({{ complexity_distribution.2 }})</div>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color complexity-3"></div>
-                    <div class="legend-label">Hard<br>({{ complexity_distribution.3 }})</div>
+                    <div class="legend-label">Extreme<br>({{ complexity_distribution.3 }})</div>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color complexity-4"></div>
-                    <div class="legend-label">Extreme<br>({{ complexity_distribution.4 }})</div>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color complexity-5"></div>
-                    <div class="legend-label">Hardcore<br>({{ complexity_distribution.5 }})</div>
+                    <div class="legend-label">Hardcore<br>({{ complexity_distribution.4 }})</div>
                 </div>
             </div>
         </div>
@@ -409,8 +410,8 @@
                             {% if badge.color == 0 %}#4CAF50
                             {% elif badge.color == 1 %}#2196F3
                             {% elif badge.color == 2 %}#FFEB3B
-                            {% elif badge.color == 3 %}#9C27B0
-                            {% elif badge.color == 4 %}#F44336
+                            {% elif badge.color == 3 %}#F44336
+                            {% elif badge.color == 4 %}#9C27B0
                             {% else %}#9E9E9E{% endif %};">
                             <span class="badge-name">{{ badge.name }}</span>
                         </div>
@@ -428,27 +429,25 @@
     <div class="section-header">
         <h2 class="section-title">Последние решенные задачи</h2>
         {% if solved_tasks_count > 3 %}
-        <a href="{% url 'all_solved_tasks' %}" class="view-all-link">
-            <span>Смотреть все</span>
-            <span class="material-icons">arrow_forward</span>
-        </a>
         {% endif %}
     </div>
 
     <div class="tasks-grid">
         {% for task in last_solved_tasks %}
         <div class="task-card" style="--task-color:
-            {% if task.complexity == 1 %}#4CAF50
-            {% elif task.complexity == 2 %}#FFC107
-            {% elif task.complexity == 3 %}#FF9800
+            {% if task.complexity == 0 %}#4CAF50
+            {% elif task.complexity == 1 %}#FFC107
+            {% elif task.complexity == 2 %}#FF9800
+            {% elif task.complexity == 3 %}#9C27B0
             {% elif task.complexity == 4 %}#F44336
-            {% elif task.complexity == 5 %}#9C27B0
             {% else %}#9E9E9E{% endif %};">
 
-            <h3 class="task-title">{{ task.title }}</h3>
+            <div class="task-title-wrapper">
+                <h3 class="task-title">{{ task.title }}</h3>
+            </div>
+
             <div class="task-meta">
                 <div class="task-complexity">
-                    <span class="complexity-dot complexity-{{ task.complexity }}"></span>
                     <span>{{ task.get_complexity_display }}</span>
                 </div>
                 <div class="task-points">{{ task.award_points }} очков</div>
@@ -463,60 +462,62 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const ctx = document.getElementById('complexityChart').getContext('2d');
-        const complexityData = {
-            labels: ['Easy', 'Medium', 'Hard', 'Extreme', 'Hardcore'],
-            datasets: [{
-                data: [
-                    {{ complexity_distribution.1 }},
-                    {{ complexity_distribution.2 }},
-                    {{ complexity_distribution.3 }},
-                    {{ complexity_distribution.4 }},
-                    {{ complexity_distribution.5 }}
-                ],
-                backgroundColor: [
-                    '#4CAF50',
-                    '#FFC107',
-                    '#FF9800',
-                    '#F44336',
-                    '#9C27B0'
-                ],
-                borderColor: 'rgba(0, 0, 0, 0.5)',
-                borderWidth: 1
-            }]
-        };
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('complexityChart').getContext('2d');
 
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: complexityData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                aspectRatio: 1,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const label = context.label || '';
-                                const value = context.raw || 0;
-                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
-                                return `${label}: ${value} задач (${percentage}%)`;
-                            }
+    // Получаем данные из шаблона
+    const complexityData = {
+        labels: ['Easy', 'Medium', 'Hard', 'Extreme', 'Hardcore'],
+        datasets: [{
+            data: [
+                {{ complexity_distribution.0 }},
+                {{ complexity_distribution.1 }},
+                {{ complexity_distribution.2 }},
+                {{ complexity_distribution.3 }},
+                {{ complexity_distribution.4 }}
+            ],
+            backgroundColor: [
+                '#4CAF50',  // Easy
+                '#FFC107',  // Medium
+                '#FF9800',  // Hard
+                '#9C27B0',  // Extreme
+                '#F44336'   // Hardcore
+            ],
+            borderColor: 'rgba(0, 0, 0, 0.5)',
+            borderWidth: 1
+        }]
+    };
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: complexityData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: 1,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.raw || 0;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+                            return `${label}: ${value} задач (${percentage}%)`;
                         }
                     }
-                },
-                cutout: '50%',
-                animation: {
-                    animateRotate: true,
-                    animateScale: true
                 }
+            },
+            cutout: '50%',
+            animation: {
+                animateRotate: true,
+                animateScale: true
             }
-        });
+        }
     });
+});
 </script>
 {% endblock %}

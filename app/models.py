@@ -41,7 +41,7 @@ class UserProfile(models.Model):
     points = models.IntegerField(default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     tasks = models.ManyToManyField(Task, blank=True)
-    bages = models.ManyToManyField(Badge, blank=True)
+    badges = models.ManyToManyField(Badge, blank=True)
 
     def __str__(self):
         return f"UserProfile for {self.user.username}"
