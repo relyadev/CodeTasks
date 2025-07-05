@@ -4,21 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf8c5dae-8c01-45df-b014-2b72e0333e42" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/CodeTasks.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/errors/403.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/errors/404.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/registration/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/registration/registration.html" afterDir="false" />
+    <list default="true" id="bf8c5dae-8c01-45df-b014-2b72e0333e42" name="Changes" comment="auth and 40x and errors">
+      <change afterPath="$PROJECT_DIR$/templates/main.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/tasks.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8371c0fa-97b1-470e-ae07-e76aff18f7cf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8371c0fa-97b1-470e-ae07-e76aff18f7cf.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeTasks/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeTasks/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/registration.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,10 +130,35 @@
       <workItem from="1751554863718" duration="3655000" />
       <workItem from="1751616481800" duration="4850000" />
       <workItem from="1751624313723" duration="2604000" />
+      <workItem from="1751644576199" duration="1483000" />
+      <workItem from="1751646876326" duration="6832000" />
+      <workItem from="1751699771242" duration="2538000" />
+      <workItem from="1751710847491" duration="5966000" />
     </task>
+    <task id="LOCAL-00001" summary="auth and 40x and errors">
+      <option name="closed" value="true" />
+      <created>1751644681706</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1751644681706</updated>
+    </task>
+    <task id="LOCAL-00002" summary="auth and 40x and errors">
+      <option name="closed" value="true" />
+      <created>1751644734788</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1751644734788</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="auth and 40x and errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="auth and 40x and errors" />
   </component>
 </project>

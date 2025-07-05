@@ -1,15 +1,26 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class Badge(models.Model):
+    name = models.CharField(max_length=100)
+    COLOR_CHOICES = [
+        (0, "Green"),
+        (1, "Blue"),
+        (2, "Yellow"),
+        (3, "Purple"),
+        (4, "Red"),
+    ]
+    color = models.IntegerField(choices=COLOR_CHOICES)
+
 class Task(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     COMPLEXITY_CHOICES = [
-        (1, 'Easy'),
-        (2, 'Medium'),
-        (3, 'Hard'),
-        (4, "Extreme"),
-        (5, "Hardcore")
+        (0, 'Easy'),
+        (1, 'Medium'),
+        (2, 'Hard'),
+        (3, "Extreme"),
+        (4, "Hardcore")
     ]
     complexity = models.IntegerField(choices=COMPLEXITY_CHOICES)
     award_points = models.IntegerField(default=0)
@@ -30,6 +41,18 @@ class UserProfile(models.Model):
     points = models.IntegerField(default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     tasks = models.ManyToManyField(Task, blank=True)
+    bages = models.ManyToManyField(Badge, blank=True)
 
     def __str__(self):
         return f"UserProfile for {self.user.username}"
+
+class Solution(models.Model):
+    code = models.TextField()
+    is_solved = models.BooleanField(default=False)
+    date_solution = models.DateTimeField(auto_now_add=True)
+    task = models.ForeignKey(Task, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return f"Solution for {self.task.title} by {self.user.username}"
+    

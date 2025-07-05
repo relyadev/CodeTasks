@@ -1,10 +1,522 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    .profile-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 24px;
+    }
+
+    .profile-header {
+        display: grid;
+        grid-template-columns: auto 1fr 300px;
+        gap: 30px;
+        margin-bottom: 40px;
+        padding: 30px;
+        background-color: var(--md-sys-color-surface-variant);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        align-items: center;
+    }
+
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 60px;
+        background: linear-gradient(135deg, var(--md-sys-color-primary), #9d6bff);
+        color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 3rem;
+        flex-shrink: 0;
+    }
+
+    .profile-info {
+        flex-grow: 1;
+    }
+
+    .profile-name {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+        color: var(--md-sys-color-primary);
+    }
+
+    .profile-stats {
+        display: flex;
+        gap: 30px;
+        margin-top: 20px;
+    }
+
+    .stat-card {
+        background-color: var(--md-sys-color-surface);
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        min-width: 150px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--md-sys-color-primary);
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        font-size: 1rem;
+        color: var(--md-sys-color-outline);
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin: 40px 0 20px 0;
+        color: var(--md-sys-color-primary);
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--md-sys-color-primary);
+        display: inline-block;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .view-all-link {
+        color: var(--md-sys-color-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.3s ease;
+    }
+
+    .view-all-link:hover {
+        color: var(--md-sys-color-primary);
+        text-decoration: underline;
+    }
+
+    .tasks-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+    }
+
+    .task-card {
+        background-color: var(--md-sys-color-surface-variant);
+        border-radius: 20px;
+        padding: 25px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .task-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 8px;
+        height: 100%;
+        background: var(--task-color);
+    }
+
+    .task-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin: 0 0 15px 0;
+        color: var(--md-sys-color-on-surface);
+        padding-left: 15px;
+    }
+
+    .task-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .task-complexity {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.9rem;
+    }
+
+    .task-points {
+        background-color: var(--md-sys-color-primary-container);
+        color: #ffffff;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .complexity-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 6px;
+    }
+
+    .empty-tasks {
+        text-align: center;
+        padding: 40px;
+        color: var(--md-sys-color-outline);
+        font-style: italic;
+        grid-column: 1 / -1;
+    }
+
+    /* Стили для бейджей */
+    .badges-container {
+        background-color: var(--md-sys-color-surface-variant);
+        border-radius: 20px;
+        padding: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .badges-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--md-sys-color-primary);
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .badges-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .badge {
+        padding: 12px 20px;
+        border-radius: 50px;
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: all 0.2s ease;
+        min-height: 60px;
+    }
+
+    .badge:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .badge-name {
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .empty-badges {
+        text-align: center;
+        padding: 40px;
+        color: var(--md-sys-color-outline);
+        font-style: italic;
+        grid-column: 1 / -1;
+    }
+
+    /* Стили для диаграммы */
+    .stats-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+
+    .chart-container {
+        background-color: var(--md-sys-color-surface-variant);
+        border-radius: 20px;
+        padding: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chart-header {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .chart-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--md-sys-color-primary);
+    }
+
+    .chart-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin: 20px 0;
+    }
+
+    .chart-canvas {
+        width: 100%;
+        max-width: 300px;
+        max-height: 300px;
+    }
+
+    .chart-legend {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 15px;
+        width: 100%;
+    }
+
+    .legend-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        font-size: 1rem;
+        min-width: 80px;
+    }
+
+    .legend-color {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+    }
+
+    .legend-label {
+        text-align: center;
+        line-height: 1.3;
+    }
+
+    /* Цвета для сложности */
+    .complexity-1 { background-color: #4CAF50; } /* Easy */
+    .complexity-2 { background-color: #FFC107; } /* Medium */
+    .complexity-3 { background-color: #FF9800; } /* Hard */
+    .complexity-4 { background-color: #F44336; } /* Extreme */
+    .complexity-5 { background-color: #9C27B0; } /* Hardcore */
+
+    /* Адаптивность */
+    @media (max-width: 992px) {
+        .profile-header {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-container {
+            grid-template-columns: 1fr;
+        }
+
+        .profile-stats {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-card {
+            min-width: 120px;
+        }
+
+        .section-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="profile-container">
+    <!-- Шапка профиля -->
+    <div class="profile-header">
+        <div class="profile-avatar">
+            {{ request.user.username|first|upper }}
+        </div>
+
+        <div class="profile-info">
+            <h1 class="profile-name">{{ request.user.username }}</h1>
+            <p>Участник платформы с {{ request.user.date_joined|date:"d.m.Y" }}</p>
+
+            <div class="profile-stats">
+                <div class="stat-card">
+                    <div class="stat-value">{{ solved_tasks_count }}</div>
+                    <div class="stat-label">Решено задач</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value">{{ profile.points }}</div>
+                    <div class="stat-label">Накоплено очков</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Пустой блок для выравнивания -->
+        <div></div>
+    </div>
+
+    <!-- Блок статистики: диаграмма и бейджи -->
+    <div class="stats-container">
+        <!-- Левая колонка: диаграмма -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <h2 class="chart-title">Распределение по сложности</h2>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="complexityChart" class="chart-canvas"></canvas>
+            </div>
+            <div class="chart-legend">
+                <div class="legend-item">
+                    <div class="legend-color complexity-1"></div>
+                    <div class="legend-label">Easy<br>({{ complexity_distribution.1 }})</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color complexity-2"></div>
+                    <div class="legend-label">Medium<br>({{ complexity_distribution.2 }})</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color complexity-3"></div>
+                    <div class="legend-label">Hard<br>({{ complexity_distribution.3 }})</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color complexity-4"></div>
+                    <div class="legend-label">Extreme<br>({{ complexity_distribution.4 }})</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color complexity-5"></div>
+                    <div class="legend-label">Hardcore<br>({{ complexity_distribution.5 }})</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Правая колонка: бейджи -->
+        <div class="badges-container">
+            <h2 class="badges-title">Бейджи</h2>
+            {% if badges %}
+                <div class="badges-grid">
+                    {% for badge in badges %}
+                        <div class="badge" style="background-color:
+                            {% if badge.color == 0 %}#4CAF50
+                            {% elif badge.color == 1 %}#2196F3
+                            {% elif badge.color == 2 %}#FFEB3B
+                            {% elif badge.color == 3 %}#9C27B0
+                            {% elif badge.color == 4 %}#F44336
+                            {% else %}#9E9E9E{% endif %};">
+                            <span class="badge-name">{{ badge.name }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-badges">
+                    <p>У вас пока нет бейджей. Решайте задачи, чтобы получать их!</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Решенные задачи -->
+    <div class="section-header">
+        <h2 class="section-title">Последние решенные задачи</h2>
+        {% if solved_tasks_count > 3 %}
+        <a href="{% url 'all_solved_tasks' %}" class="view-all-link">
+            <span>Смотреть все</span>
+            <span class="material-icons">arrow_forward</span>
+        </a>
+        {% endif %}
+    </div>
+
+    <div class="tasks-grid">
+        {% for task in last_solved_tasks %}
+        <div class="task-card" style="--task-color:
+            {% if task.complexity == 1 %}#4CAF50
+            {% elif task.complexity == 2 %}#FFC107
+            {% elif task.complexity == 3 %}#FF9800
+            {% elif task.complexity == 4 %}#F44336
+            {% elif task.complexity == 5 %}#9C27B0
+            {% else %}#9E9E9E{% endif %};">
+
+            <h3 class="task-title">{{ task.title }}</h3>
+            <div class="task-meta">
+                <div class="task-complexity">
+                    <span class="complexity-dot complexity-{{ task.complexity }}"></span>
+                    <span>{{ task.get_complexity_display }}</span>
+                </div>
+                <div class="task-points">{{ task.award_points }} очков</div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-tasks">
+            <p>Вы ещё не решили ни одной задачи</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('complexityChart').getContext('2d');
+        const complexityData = {
+            labels: ['Easy', 'Medium', 'Hard', 'Extreme', 'Hardcore'],
+            datasets: [{
+                data: [
+                    {{ complexity_distribution.1 }},
+                    {{ complexity_distribution.2 }},
+                    {{ complexity_distribution.3 }},
+                    {{ complexity_distribution.4 }},
+                    {{ complexity_distribution.5 }}
+                ],
+                backgroundColor: [
+                    '#4CAF50',
+                    '#FFC107',
+                    '#FF9800',
+                    '#F44336',
+                    '#9C27B0'
+                ],
+                borderColor: 'rgba(0, 0, 0, 0.5)',
+                borderWidth: 1
+            }]
+        };
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: complexityData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 1,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+                                return `${label}: ${value} задач (${percentage}%)`;
+                            }
+                        }
+                    }
+                },
+                cutout: '50%',
+                animation: {
+                    animateRotate: true,
+                    animateScale: true
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
