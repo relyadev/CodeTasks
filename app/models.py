@@ -40,18 +40,31 @@ class UserProfile(models.Model):
     resolved_task_count = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    tasks = models.ManyToManyField(Task, blank=True)
     badges = models.ManyToManyField(Badge, blank=True)
 
     def __str__(self):
         return f"UserProfile for {self.user.username}"
 
 class Solution(models.Model):
+    LANGUAGE_CHOICES = [
+        ('python', "Python"),
+        ('java', "Java"),
+        ('c++', "C++"),
+        ('c#', "C#"),
+        ('javascript', "JavaScript"),
+        ('pascal', "Pascal")
+    ]
+
+    language = models.CharField(
+        max_length=20,
+        choices=LANGUAGE_CHOICES,
+        default='python'
+    )
     code = models.TextField()
     is_solved = models.BooleanField(default=False)
     date_solution = models.DateTimeField(auto_now_add=True)
-    task = models.ForeignKey(Task, on_delete=models.DO_NOTHING)
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='solutions')
 
     def __str__(self):
         return f"Solution for {self.task.title} by {self.user.username}"

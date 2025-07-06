@@ -46,15 +46,14 @@ def get_solved_tasks(request):
 @login_required
 def profile(request):
     user_profile = get_object_or_404(UserProfile, user=request.user)
-    all_solved_tasks = user_profile.tasks.all()
+    all_solved_tasks = Task.objects.filter(solution__user=user_profile.user,solution__is_solved=True)
     solved_tasks_count = all_solved_tasks.count()
 
-    #FIXME: Сделать сортировку по Solved.objects.filter(is_solved=True).order_by('-id')[:3]
     last_solved_tasks = all_solved_tasks.order_by('-id')[:3]
 
     total_tasks = Task.objects.count()
     badges = user_profile.badges.all()
-
+    user_profile.user.solutions.filter(is_solved=True).get()
     complexity_distribution = {
         0: all_solved_tasks.filter(complexity=0).count(),
         1: all_solved_tasks.filter(complexity=1).count(),
