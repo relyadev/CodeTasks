@@ -49,7 +49,7 @@ def profile(request):
     all_solved_tasks = Task.objects.filter(solution__user=user_profile.user,solution__is_solved=True)
     solved_tasks_count = all_solved_tasks.count()
 
-    last_solved_tasks = all_solved_tasks.order_by('-id')[:3]
+    last_solved_tasks = all_solved_tasks.order_by('-date_solution')[:3]
 
     total_tasks = Task.objects.count()
     badges = user_profile.badges.all()
