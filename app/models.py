@@ -12,6 +12,9 @@ class Badge(models.Model):
     ]
     color = models.IntegerField(choices=COLOR_CHOICES)
 
+    def __str__(self):
+        return self.name
+
 class Task(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()

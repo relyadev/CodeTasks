@@ -342,12 +342,12 @@
     <!-- Шапка профиля -->
     <div class="profile-header">
         <div class="profile-avatar">
-            {{ request.user.username|first|upper }}
+            {{ profile.user.username|first|upper }}
         </div>
 
         <div class="profile-info">
-            <h1 class="profile-name">{{ request.user.username }}</h1>
-            <p>Участник платформы с {{ request.user.date_joined|date:"d.m.Y" }}</p>
+            <h1 class="profile-name">{{ profile.user.username }}</h1>
+            <p>Участник платформы с {{ profile.user.date_joined|date:"d.m.Y" }}</p>
 
             <div class="profile-stats">
                 <div class="stat-card">
@@ -419,7 +419,7 @@
                 </div>
             {% else %}
                 <div class="empty-badges">
-                    <p>У вас пока нет бейджей. Решайте задачи, чтобы получать их!</p>
+                    <p>Нет бейджей</p>
                 </div>
             {% endif %}
         </div>
@@ -455,7 +455,7 @@
         </div>
         {% empty %}
         <div class="empty-tasks">
-            <p>Вы ещё не решили ни одной задачи</p>
+            <p>Нет решенных задач</p>
         </div>
         {% endfor %}
     </div>

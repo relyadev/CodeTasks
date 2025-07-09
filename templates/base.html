@@ -310,12 +310,20 @@
                            class="{% if '/tasks/' in request.path %}active{% endif %}"
                            id="tasks-link">
                            <span class="nav-icon">
-                               <!-- Кастомная иконка </> -->
                                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                                    <path d="M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6Z" />
                                </svg>
                            </span>
                            <span>Задачи</span>
+                        </a>
+                    </li>
+                    <!-- Добавлен новый пункт Лидеры -->
+                    <li>
+                        <a href="/leaders/"
+                           class="{% if '/leaders/' in request.path %}active{% endif %}"
+                           id="leaders-link">
+                           <span class="material-icons nav-icon">leaderboard</span>
+                           <span>Лидеры</span>
                         </a>
                     </li>
                 </ul>
@@ -331,7 +339,7 @@
                 </div>
             </button>
             <div class="dropdown-content">
-                <a href="/profile/" class="dropdown-item">
+                <a href="{% url 'profile' request.user.username %}" class="dropdown-item">
                     <span class="material-icons dropdown-icon">person</span>
                     <span>Профиль</span>
                 </a>
