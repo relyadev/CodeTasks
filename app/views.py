@@ -1,8 +1,11 @@
-from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest
 from django.shortcuts import  redirect, render, get_object_or_404
-from app.forms import RegistrationForm
-from .models import UserProfile, Task, User
+from app.forms import RegistrationForm, EditProfileForm
+from .models import UserProfile, Task, User, News
+from django_ratelimit.decorators import ratelimit
+
+
 
 def handler404(request, exception):
     return render(request, "errors/404.html", status=404)
@@ -26,14 +29,27 @@ def register(req: HttpRequest):
     return render(req, "registration/registration.html", {"form": form})
 
 def main(request):
-    return render(request, "main.html")
+    news = News.objects.all().order_by('-date')
+    context = {
+        "news": news
+    }
+    return render(request, "main.html", context)
+
 
 def tasks(request):
-    return render(request, "tasks.html")
+    tasks_list = Task.objects.all()
+    return render(request, "tasks.html", {'tasks': tasks_list})
 
+# views.py
 def leaders(request):
-    return render(request, "leaders.html")
+    leaders_list = UserProfile.objects.all().order_by('-points')
+    total_tasks = Task.objects.count()
 
+    context = {
+        'leaders': leaders_list,
+        'total_tasks': total_tasks
+    }
+    return render(request, "leaders.html", context)
 
 def profile(request, username):
     user = get_object_or_404(User, username=username)
@@ -65,6 +81,24 @@ def profile(request, username):
     }
 
     return render(request, 'profile.html', context)
+@ratelimit(key='ip', rate='1/s', block=True)
+def edit_profile(req: HttpRequest):
+    user = req.user
+    user_profile = get_object_or_404(User, id=user.id)
+
+    if req.method == "POST":
+        form = EditProfileForm(req.POST, instance=user_profile)
+        if form.is_valid():
+            was_limited = getattr(req, 'limited', False)
+            if was_limited:
+                raise PermissionDenied("You can't edit your own profile")
+            form.save()
+            return redirect("profile", username=user_profile.username)
+        return render(req, "profile_edit.html", {"user_profile": user_profile, "form": form})
+
+    form = EditProfileForm(instance=user_profile)
+    return render(req, "profile_edit.html", {"user_profile": user_profile, "form": form})
+
 
 
 

@@ -28,6 +28,14 @@ class RegistrationForm(forms.ModelForm):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         password_confirm = cleaned_data.get("password_confirm")
+        username = cleaned_data.get("username")
+
+        unresolved_names = ["admin", ""]
+        if username in unresolved_names:
+            self.add_error("username", "Данное имя нельзя использовать")
+
+        if len(username) < 5:
+            self.add_error("username", "Имя должно содержать не менее 5 символов")
 
         if len(password) < 8:
             self.add_error('password', "Пароль должен содержать 8 и более символов")
@@ -35,4 +43,19 @@ class RegistrationForm(forms.ModelForm):
         if password and password_confirm and password != password_confirm:
             self.add_error('password_confirm', "Пароли не совпадают")
 
+
+        return cleaned_data
+
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        username = cleaned_data.get("username")
+        is_exist = User.objects.filter(username=username).exists()
+
+        if is_exist:
+            self.add_error('username', "Такой username уже используется")
         return cleaned_data

@@ -4,15 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf8c5dae-8c01-45df-b014-2b72e0333e42" name="Changes" comment="ordering by a date solution">
-      <change afterPath="$PROJECT_DIR$/templates/leaders.html" afterDir="false" />
+    <list default="true" id="bf8c5dae-8c01-45df-b014-2b72e0333e42" name="Changes" comment="main, auth, profile">
+      <change afterPath="$PROJECT_DIR$/.idea/ruff.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/profile_edit.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeTasks/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeTasks/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodeTasks/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeTasks/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/leaders.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/leaders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/registration.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/tasks.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tasks.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +96,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;http.proxy&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -152,7 +159,17 @@
       <workItem from="1751893520983" duration="705000" />
       <workItem from="1751974821652" duration="722000" />
       <workItem from="1752048796687" duration="1622000" />
-      <workItem from="1752073003576" duration="2219000" />
+      <workItem from="1752073003576" duration="4878000" />
+      <workItem from="1752170817945" duration="96000" />
+      <workItem from="1752247386798" duration="431000" />
+      <workItem from="1752248540485" duration="443000" />
+      <workItem from="1752253123088" duration="2605000" />
+      <workItem from="1752405874675" duration="694000" />
+      <workItem from="1752510292909" duration="2842000" />
+      <workItem from="1752580132706" duration="26000" />
+      <workItem from="1752580195072" duration="1466000" />
+      <workItem from="1752586620564" duration="506000" />
+      <workItem from="1752763254143" duration="3553000" />
     </task>
     <task id="LOCAL-00001" summary="auth and 40x and errors">
       <option name="closed" value="true" />
@@ -194,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751792263432</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="main, auth, profile">
+      <option name="closed" value="true" />
+      <created>1752075249932</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1752075249933</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,6 +241,7 @@
     <MESSAGE value="auth, profile and main" />
     <MESSAGE value="new logic for getting all solved tasks, with ForeignKey" />
     <MESSAGE value="ordering by a date solution" />
-    <option name="LAST_COMMIT_MESSAGE" value="ordering by a date solution" />
+    <MESSAGE value="main, auth, profile" />
+    <option name="LAST_COMMIT_MESSAGE" value="main, auth, profile" />
   </component>
 </project>

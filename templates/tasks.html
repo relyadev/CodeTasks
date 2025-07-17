@@ -1,5 +1,170 @@
 {% extends 'base.html' %}
 {% block content %}
+    <style>
+        /* Стили для контейнера задач */
+        .tasks-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
 
-    <p>Tasks</p>
+        /* Стили для карточки задачи */
+        .task-card {
+            background-color: var(--md-sys-color-surface-variant);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .task-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--md-sys-color-primary);
+            text-decoration: none;
+        }
+
+        .task-complexity {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .task-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .task-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .task-points {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            color: var(--md-sys-color-secondary);
+        }
+
+        .solve-button {
+            background-color: var(--md-sys-color-primary-container);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .solve-button:hover {
+            background-color: var(--md-sys-color-primary);
+            transform: scale(1.05);
+        }
+
+        /* Цвета для сложности */
+        .complexity-easy {
+            background-color: rgba(76, 175, 80, 0.15);
+            color: #4CAF50;
+        }
+
+        .complexity-medium {
+            background-color: rgba(255, 193, 7, 0.15);
+            color: #FFC107;
+        }
+
+        .complexity-hard {
+            background-color: rgba(255, 152, 0, 0.15);
+            color: #FF9800;
+        }
+
+        .complexity-extreme {
+            background-color: rgba(244, 67, 54, 0.15);
+            color: #F44336;
+        }
+
+        .complexity-hardcore {
+            background-color: rgba(156, 39, 176, 0.15);
+            color: #9C27B0;
+        }
+
+        /* Стили для заголовка страницы */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--md-sys-color-primary);
+        }
+    </style>
+
+    <div class="page-header">
+        <h1 class="page-title">Задачи</h1>
+    </div>
+
+    <div class="tasks-container">
+        {% for task in tasks %}
+            <div class="task-card">
+                <div class="task-header">
+                    <a href="#" class="task-title">{{ task.title }}</a>
+                    <span class="task-complexity complexity-{{ task.get_complexity_display|lower }}">
+                <span class="material-icons">{% if task.complexity == 0 %}check_circle{% elif task.complexity == 1 %}
+                    warning{% elif task.complexity == 2 %}error{% elif task.complexity == 3 %}whatshot{% else %}
+                    dangerous{% endif %}</span>
+                {{ task.get_complexity_display }}
+            </span>
+                </div>
+
+                <p class="task-description">{{ task.description|truncatechars:80 }}</p>
+
+                <div class="task-footer">
+                    <div class="task-points">
+                        <span class="material-icons">military_tech</span>
+                        <span>{{ task.award_points }} очков</span>
+                    </div>
+                    <button class="solve-button">
+                        <span class="material-icons">code</span>
+                        Решить
+                    </button>
+                </div>
+            </div>
+        {% empty %}
+            <p>Пока нет доступных задач</p>
+        {% endfor %}
+    </div>
 {% endblock %}

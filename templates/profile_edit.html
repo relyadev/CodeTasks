@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <style>
+        .error-message {
+            color: #cf6679;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .edit-profile-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0 0 30px 0;
+            color: var(--md-sys-color-primary);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--md-sys-color-primary);
+            display: inline-block;
+        }
+
+        .edit-form {
+            background-color: var(--md-sys-color-surface-variant);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-field {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .form-field label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: var(--md-sys-color-outline);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-field .material-icons {
+            font-size: 24px;
+            color: var(--md-sys-color-secondary);
+        }
+
+        .form-field input,
+        .form-field textarea,
+        .form-field select {
+            width: 100%;
+            padding: 16px 20px;
+            background-color: var(--md-sys-color-surface);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            color: var(--md-sys-color-on-surface);
+            font-size: 1.05rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-field input:focus,
+        .form-field textarea:focus,
+        .form-field select:focus {
+            outline: none;
+            border-color: var(--md-sys-color-primary);
+            box-shadow: 0 0 0 2px rgba(187, 134, 252, 0.2);
+        }
+
+        .form-errors {
+            color: var(--md-sys-color-error);
+            background: rgba(255, 138, 158, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--md-sys-color-error);
+        }
+
+        .form-errors ul {
+            padding-left: 20px;
+        }
+
+        .form-errors li {
+            margin-bottom: 8px;
+        }
+
+        .submit-button {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            border: none;
+            padding: 16px 32px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .submit-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(187, 134, 252, 0.25);
+        }
+
+        /* Стили для выбора цветов */
+        .color-picker {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .color-option.selected {
+            border-color: white;
+            transform: scale(1.1);
+            box-shadow: 0 0 0 3px var(--md-sys-color-primary);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .edit-form {
+                padding: 25px;
+            }
+
+            .form-field {
+                margin-bottom: 25px;
+            }
+
+            .form-field input,
+            .form-field textarea,
+            .form-field select {
+                padding: 14px 18px;
+            }
+        }
+    </style>
+
+    <div class="edit-profile-container">
+        <h1 class="section-title">Редактирование профиля</h1>
+
+
+        <form method="post" action="{% url 'edit_profile' %}" class="edit-form" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-field">
+                <label for="id_username">
+                    <span class="material-icons">person</span>
+                    Имя пользователя
+                </label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="error-message">
+                        {{ form.username.errors.as_text }}
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="form-field">
+                <label for="id_bio">
+                    <span class="material-icons">description</span>
+                    О себе
+                </label>
+                {{ form.bio }}
+            </div>
+
+            <div class="form-field">
+                <label for="id_avatar">
+                    <span class="material-icons">image</span>
+                    Аватар
+                </label>
+                {{ form.avatar }}
+            </div>
+
+
+            <button type="submit" class="submit-button">
+                <span class="material-icons">save</span>
+                Сохранить изменения
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Выбор цветовой схемы
+            const colorOptions = document.querySelectorAll('.color-option');
+            const color1Input = document.getElementById('id_color1');
+            const color2Input = document.getElementById('id_color2');
+
+            // Установка текущих цветов
+            function setCurrentColors() {
+                colorOptions.forEach(option => {
+                    const color1 = option.dataset.color1;
+                    const color2 = option.dataset.color2;
+
+                    if (color1 === color1Input.value && color2 === color2Input.value) {
+                        option.classList.add('selected');
+                    }
+                });
+            }
+
+            setCurrentColors();
+
+            // Обработчик выбора цвета
+            colorOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    colorOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+
+                    color1Input.value = option.dataset.color1;
+                    color2Input.value = option.dataset.color2;
+                });
+            });
+
+            // Превью аватара
+            const avatarInput = document.getElementById('id_avatar');
+            if (avatarInput) {
+                avatarInput.addEventListener('change', function (e) {
+                    if (e.target.files && e.target.files[0]) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            // Здесь можно добавить превью аватара
+                            console.log('New avatar selected:', e.target.result);
+                        }
+                        reader.readAsDataURL(e.target.files[0]);
+                    }
+                });
+            }
+        });
+    </script>
+
+{% endblock %}

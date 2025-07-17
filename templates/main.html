@@ -1,194 +1,149 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<style>
-    .news-container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 20px;
-    }
+    <style>
+        .news-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    .news-header {
-        text-align: center;
-        margin-bottom: 50px;
-        padding: 0 20px;
-    }
+        /* Обновленный стиль для заголовка */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
 
-    .news-header h1 {
-        font-size: 2.8rem;
-        font-weight: 700;
-        color: var(--md-sys-color-primary);
-        margin: 0 0 20px 0;
-    }
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--md-sys-color-primary);
+        }
 
-    .news-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-    }
-
-    .news-card {
-        background-color: var(--md-sys-color-surface-variant);
-        border-radius: 20px;
-        padding: 30px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .news-card-left {
-        border-left: 4px solid var(--md-sys-color-primary);
-    }
-
-    .news-card-right {
-        border-right: 4px solid var(--md-sys-color-primary);
-    }
-
-    .news-title {
-        margin-bottom: 20px;
-    }
-
-    .news-title h2 {
-        font-size: 1.8rem;
-        font-weight: 600;
-        margin: 0;
-        color: var(--md-sys-color-on-surface);
-    }
-
-    .news-content {
-        font-size: 1.1rem;
-        line-height: 1.7;
-        color: var(--md-sys-color-on-surface);
-        flex-grow: 1;
-        padding-bottom: 20px;
-    }
-
-    .news-meta {
-        display: flex;
-        justify-content: space-between;
-        padding-top: 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        color: var(--md-sys-color-outline);
-        font-size: 0.95rem;
-    }
-
-    .news-date {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .news-category {
-        background-color: var(--md-sys-color-primary-container);
-        color: #ffffff;
-        padding: 4px 12px;
-        border-radius: 12px;
-        font-size: 0.9rem;
-        font-weight: 500;
-    }
-
-    @media (max-width: 992px) {
         .news-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .news-card-left,
-        .news-card-right {
-            border-left: 4px solid var(--md-sys-color-primary);
-            border-right: none;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .news-header h1 {
-            font-size: 2.2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
         }
 
         .news-card {
-            padding: 20px;
+            background-color: var(--md-sys-color-surface-variant);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
-    }
-</style>
 
-<div class="news-container">
-    <div class="news-header">
-        <h1>Последние новости</h1>
-        <p>Следите за обновлениями нашей платформы</p>
+        .news-card-left {
+            border-left: 4px solid var(--md-sys-color-primary);
+        }
+
+        .news-card-right {
+            border-right: 4px solid var(--md-sys-color-primary);
+        }
+
+        .news-title {
+            margin-bottom: 20px;
+        }
+
+        .news-title h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .news-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--md-sys-color-on-surface);
+            flex-grow: 1;
+            padding-bottom: 20px;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--md-sys-color-outline);
+            font-size: 0.95rem;
+        }
+
+        .news-date {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .news-category {
+            background-color: var(--md-sys-color-primary-container);
+            color: #ffffff;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 992px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news-card-left,
+            .news-card-right {
+                border-left: 4px solid var(--md-sys-color-primary);
+                border-right: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .news-card {
+                padding: 20px;
+            }
+        }
+    </style>
+
+
+    <div class="news-container">
+        <!-- Обновленный заголовок в стиле таблицы лидеров -->
+        <div class="page-header">
+            <h1 class="page-title">Последние новости</h1>
+            <!-- Опционально: можно добавить элемент справа, если нужно -->
+            <div></div> <!-- Пустой элемент для выравнивания -->
+        </div>
+
+        <div class="news-grid">
+            {% for item in news %}
+                <div class="news-card {% cycle 'news-card-left' 'news-card-right' %}">
+                    <div class="news-title">
+                        <h2>{{ item.title }}</h2>
+                    </div>
+                    <div class="news-content">
+                        {{ item.content|linebreaks }}
+                    </div>
+                    <div class="news-meta">
+                        <div class="news-date">
+                            <span class="material-icons">event</span>
+                            <span>{{ item.date|date:"d E Y" }}</span>
+                        </div>
+                        <div class="news-category">{{ item.get_category_display }}</div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="no-news" style="grid-column: span 2; text-align: center; padding: 50px; color: #b7b7b7;">
+                    <p>Новостей пока нет</p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-
-    <div class="news-grid">
-        <!-- Левая колонка -->
-        <div class="news-card news-card-left">
-            <div class="news-title">
-                <h2>Запуск платформы</h2>
-            </div>
-            <div class="news-content">
-                <p>Мы рады представить CodeTasks - новую платформу для разработчиков! Теперь вы можете решать практические задачи, участвовать в соревнованиях и совершенствовать свои навыки программирования.</p>
-                <p>В день запуска к нам присоединились более 1000 разработчиков.</p>
-            </div>
-            <div class="news-meta">
-                <div class="news-date">
-                    <span class="material-icons">event</span>
-                    <span>15 октября 2023</span>
-                </div>
-                <div class="news-category">Анонс</div>
-            </div>
-        </div>
-
-        <!-- Правая колонка -->
-        <div class="news-card news-card-right">
-            <div class="news-title">
-                <h2>Защита от DDoS</h2>
-            </div>
-            <div class="news-content">
-                <p>Наша система безопасности успешно отразила крупную DDoS атаку. Благодаря современным технологиям защиты, работа платформы не была нарушена.</p>
-                <p>Мы продолжаем укреплять инфраструктуру для обеспечения стабильной работы сервиса.</p>
-            </div>
-            <div class="news-meta">
-                <div class="news-date">
-                    <span class="material-icons">event</span>
-                    <span>12 октября 2023</span>
-                </div>
-                <div class="news-category">Безопасность</div>
-            </div>
-        </div>
-
-        <!-- Левая колонка -->
-        <div class="news-card news-card-left">
-            <div class="news-title">
-                <h2>Новые задачи по Python</h2>
-            </div>
-            <div class="news-content">
-                <p>Добавлено 25 новых задач по Python разного уровня сложности - от базового синтаксиса до продвинутых тем работы с асинхронным программированием и оптимизацией кода.</p>
-            </div>
-            <div class="news-meta">
-                <div class="news-date">
-                    <span class="material-icons">event</span>
-                    <span>10 октября 2023</span>
-                </div>
-                <div class="news-category">Обновление</div>
-            </div>
-        </div>
-
-        <!-- Правая колонка -->
-        <div class="news-card news-card-right">
-            <div class="news-title">
-                <h2>Система достижений</h2>
-            </div>
-            <div class="news-content">
-                <p>Мы внедрили систему достижений и бейджей! Теперь за решение задач и активность на платформе вы будете получать уникальные награды.</p>
-                <p>Первые 100 пользователей, решившие 20 задач, получат бейдж "Пионер".</p>
-            </div>
-            <div class="news-meta">
-                <div class="news-date">
-                    <span class="material-icons">event</span>
-                    <span>8 октября 2023</span>
-                </div>
-                <div class="news-category">Нововведение</div>
-            </div>
-        </div>
-    </div>
-</div>
 
 {% endblock %}

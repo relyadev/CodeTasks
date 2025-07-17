@@ -15,6 +15,7 @@
     <script type="module">
         import '@material/web/all.js';
         import {styles as typescaleStyles} from '@material/web/typography/md-typescale-styles.js';
+
         document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
     </script>
     <style>
@@ -45,7 +46,7 @@
             background: #1f1f1f;
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
             width: 100%;
             max-width: 550px;
             color: #e1e1e1;
@@ -212,70 +213,70 @@
     </style>
 </head>
 <body>
-    <!-- Остальное содержимое без изменений -->
-    <div class="login-form">
-        <h1 class="form-title md-typescale-display-medium">Вход</h1>
+<!-- Остальное содержимое без изменений -->
+<div class="login-form">
+    <h1 class="form-title md-typescale-display-medium">Вход</h1>
 
-        {% if form.non_field_errors %}
-            <div class="non-field-errors">
-                {% for error in form.non_field_errors %}
-                    {{ error }}
-                {% endfor %}
-            </div>
-        {% endif %}
+    {% if form.non_field_errors %}
+        <div class="non-field-errors">
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
 
-        <form method="post">
-            {% csrf_token %}
+    <form method="post">
+        {% csrf_token %}
 
-            <div class="form-group">
-                <md-outlined-text-field
+        <div class="form-group">
+            <md-outlined-text-field
                     label="Имя пользователя"
                     name="username"
                     id="id_username"
                     {% if form.username.errors %}error{% endif %}
                     required>
-                </md-outlined-text-field>
-                {% if form.username.errors %}
-                    <div class="error-message">
-                        {% for error in form.username.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
+            </md-outlined-text-field>
+            {% if form.username.errors %}
+                <div class="error-message">
+                    {% for error in form.username.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
 
-            <div class="form-group">
-                <md-outlined-text-field
+        <div class="form-group">
+            <md-outlined-text-field
                     label="Пароль"
                     name="password"
                     id="id_password"
                     type="password"
                     {% if form.password.errors %}error{% endif %}
                     required>
-                </md-outlined-text-field>
-                {% if form.password.errors %}
-                    <div class="error-message">
-                        {% for error in form.password.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
+            </md-outlined-text-field>
+            {% if form.password.errors %}
+                <div class="error-message">
+                    {% for error in form.password.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
 
-            <div class="remember-me">
-                <md-checkbox></md-checkbox>
-                <span>Запомнить меня</span>
-            </div>
+        <div class="remember-me">
+            <md-checkbox></md-checkbox>
+            <span>Запомнить меня</span>
+        </div>
 
-            <md-filled-button type="submit" class="submit-btn">
-                Войти
-            </md-filled-button>
+        <md-filled-button type="submit" class="submit-btn">
+            Войти
+        </md-filled-button>
 
-            <div class="form-footer">
-                <a href="/password_reset/" class="form-link">Забыли пароль?</a>
-                <a href="{% url 'register' %}" class="form-link">Регистрация</a>
-            </div>
-        </form>
-    </div>
+        <div class="form-footer">
+            <a href="/password_reset/" class="form-link">Забыли пароль?</a>
+            <a href="{% url 'register' %}" class="form-link">Регистрация</a>
+        </div>
+    </form>
+</div>
 </body>
 </html>

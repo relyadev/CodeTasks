@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Badge(models.Model):
     name = models.CharField(max_length=100)
     COLOR_CHOICES = [
@@ -71,4 +72,17 @@ class Solution(models.Model):
 
     def __str__(self):
         return f"Solution for {self.task.title} by {self.user.username}"
-    
+
+class News(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    CATEGORY_CHOICES = [
+        ("announcement", "Анонс"),
+        ("security", "Безопасность"),
+        ("update", "Обновление"),
+    ]
+    category = models.CharField(choices=CATEGORY_CHOICES, max_length=20)
+
+    def __str__(self):
+        return f"{self.title}"

@@ -18,6 +18,7 @@
     <script type="module">
         import '@material/web/all.js';
         import {styles as typescaleStyles} from '@material/web/typography/md-typescale-styles.js';
+
         document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
     </script>
     <style>
@@ -143,8 +144,8 @@
             font-size: 1.2rem;
             font-weight: bold;
             color: white;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
             transition: all 0.3s ease;
             flex-shrink: 0;
         }
@@ -169,7 +170,7 @@
         /* Плавное увеличение аватара при наведении на кнопку */
         .dropdown-button:hover .avatar {
             transform: scale(1.1);
-            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
         }
 
         /* Выпадающее меню - улучшенные стили */
@@ -188,7 +189,7 @@
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 100;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .dropdown:hover .dropdown-content {
@@ -286,81 +287,81 @@
     </style>
 </head>
 <body>
-    <header>
-        <!-- Левый блок: логотип + навигация -->
-        <div class="header-left">
-            <!-- Логотип -->
-            <a href="/" class="logo">
-                <span>CodeTasks</span>
-            </a>
+<header>
+    <!-- Левый блок: логотип + навигация -->
+    <div class="header-left">
+        <!-- Логотип -->
+        <a href="/" class="logo">
+            <span>CodeTasks</span>
+        </a>
 
-            <!-- Навигация с иконками -->
-            <nav>
-                <ul>
-                    <li>
-                        <a href="/"
-                           class="{% if request.path == '/' %}active{% endif %}"
-                           id="home-link">
-                           <span class="material-icons nav-icon">home</span>
-                           <span>Главная</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/tasks/"
-                           class="{% if '/tasks/' in request.path %}active{% endif %}"
-                           id="tasks-link">
+        <!-- Навигация с иконками -->
+        <nav>
+            <ul>
+                <li>
+                    <a href="/"
+                       class="{% if request.path == '/' %}active{% endif %}"
+                       id="home-link">
+                        <span class="material-icons nav-icon">home</span>
+                        <span>Главная</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/tasks/"
+                       class="{% if '/tasks/' in request.path %}active{% endif %}"
+                       id="tasks-link">
                            <span class="nav-icon">
                                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                                   <path d="M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6Z" />
+                                   <path d="M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6Z"/>
                                </svg>
                            </span>
-                           <span>Задачи</span>
-                        </a>
-                    </li>
-                    <!-- Добавлен новый пункт Лидеры -->
-                    <li>
-                        <a href="/leaders/"
-                           class="{% if '/leaders/' in request.path %}active{% endif %}"
-                           id="leaders-link">
-                           <span class="material-icons nav-icon">leaderboard</span>
-                           <span>Лидеры</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+                        <span>Задачи</span>
+                    </a>
+                </li>
+                <!-- Добавлен новый пункт Лидеры -->
+                <li>
+                    <a href="/leaders/"
+                       class="{% if '/leaders/' in request.path %}active{% endif %}"
+                       id="leaders-link">
+                        <span class="material-icons nav-icon">leaderboard</span>
+                        <span>Лидеры</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
-        <!-- Выпадающее меню справа -->
-        <div class="dropdown">
-            <button class="dropdown-button">
-               <div class="avatar"
-                    style="background: linear-gradient(135deg, {{ user_profile.color1|default:'#9d6bff' }}, {{ user_profile.color2|default:'#4a00e0' }});">
-                    {{ request.user.username.0|upper }}
-                </div>
-            </button>
-            <div class="dropdown-content">
-                <a href="{% url 'profile' request.user.username %}" class="dropdown-item">
-                    <span class="material-icons dropdown-icon">person</span>
-                    <span>Профиль</span>
-                </a>
-                <a href="" class="dropdown-item">
-                    <span class="material-icons dropdown-icon">settings</span>
-                    <span>Настройки профиля</span>
-                </a>
-                <form action="{% url 'logout' %}" method="post" class="logout-form">
-                    {% csrf_token %}
-                    <button type="submit" class="logout-button">
-                        <span class="material-icons dropdown-icon">logout</span>
-                        <span>Выход</span>
-                    </button>
-                </form>
+    <!-- Выпадающее меню справа -->
+    <div class="dropdown">
+        <button class="dropdown-button">
+            <div class="avatar"
+                 style="background: linear-gradient(135deg, {{ user_profile.color1|default:'#9d6bff' }}, {{ user_profile.color2|default:'#4a00e0' }});">
+                {{ request.user.username.0|upper }}
             </div>
+        </button>
+        <div class="dropdown-content">
+            <a href="{% url 'profile' request.user.username %}" class="dropdown-item">
+                <span class="material-icons dropdown-icon">person</span>
+                <span>Профиль</span>
+            </a>
+            <a href="{% url 'edit_profile' %}" class="dropdown-item">
+                <span class="material-icons dropdown-icon">settings</span>
+                <span>Настройки профиля</span>
+            </a>
+            <form action="{% url 'logout' %}" method="post" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="logout-button">
+                    <span class="material-icons dropdown-icon">logout</span>
+                    <span>Выход</span>
+                </button>
+            </form>
         </div>
-    </header>
+    </div>
+</header>
 
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
 </body>
 </html>

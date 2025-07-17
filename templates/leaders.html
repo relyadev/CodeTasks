@@ -1,5 +1,187 @@
 {% extends 'base.html' %}
 {% block content %}
+    <style>
+        .leaders-container {
+            margin-top: 20px;
+        }
 
-    <p>Leaders</p>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--md-sys-color-primary);
+        }
+
+        .leaderboard {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--md-sys-color-surface-variant);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .leaderboard th, .leaderboard td {
+            padding: 16px 24px;
+            text-align: left;
+        }
+
+        .leaderboard th {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--md-sys-color-primary);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .leaderboard tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .leaderboard tr:last-child {
+            border-bottom: none;
+        }
+
+        .leaderboard tr:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        .leader-avatar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none
+        }
+
+        .leader-avatar .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            /* Убрали тень */
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .leader-username {
+            font-weight: 500;
+            /* Убрали подчеркивание */
+            text-decoration: none;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .leader-points {
+            font-weight: 700;
+            color: var(--md-sys-color-secondary);
+        }
+
+        .leader-rank {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--md-sys-color-primary);
+            text-align: center;
+            width: 50px;
+        }
+
+        /* Стили для первых трех мест */
+        .first-place .leader-rank {
+            color: gold;
+            font-size: 1.4rem;
+        }
+
+        .second-place .leader-rank {
+            color: silver;
+            font-size: 1.3rem;
+        }
+
+        .third-place .leader-rank {
+            color: #cd7f32; /* bronze */
+            font-size: 1.2rem;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--md-sys-color-primary), var(--md-sys-color-secondary));
+            border-radius: 3px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+    </style>
+
+    <div class="page-header">
+        <h1 class="page-title">Лидеры</h1>
+    </div>
+
+    <div class="leaders-container">
+        <table class="leaderboard">
+            <thead>
+            <tr>
+                <th width="60">Место</th>
+                <th>Участник</th>
+                <th width="120">Очки</th>
+                <th width="200">Прогресс</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for leader in leaders %}
+                <tr class="{% if forloop.counter == 1 %}first-place{% elif forloop.counter == 2 %}second-place{% elif forloop.counter == 3 %}third-place{% endif %}">
+                    <td class="leader-rank">
+                        {{ forloop.counter }}
+                    </td>
+                    <td>
+                        <a href="{% url 'profile' leader.user.username %}" class="leader-avatar">
+                            <div class="avatar"
+                                 style="background: linear-gradient(135deg, {{ leader.color1|default:'#9d6bff' }}, {{ leader.color2|default:'#4a00e0' }});">
+                                {{ leader.user.username.0|upper }}
+                            </div>
+                            <span class="leader-username">{{ leader.user.username }}</span>
+                        </a>
+                    </td>
+                    <td class="leader-points">{{ leader.points }}</td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill"
+                                 style="width: {% widthratio leader.resolved_task_count total_tasks 100 %}%"></div>
+                        </div>
+                        <div class="progress-info">
+                            <span>{{ leader.resolved_task_count }} задач</span>
+                            <span>{% widthratio leader.resolved_task_count total_tasks 100 %}%</span>
+                        </div>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 30px;">
+                        Пока нет лидеров
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
