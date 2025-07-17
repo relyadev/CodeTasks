@@ -1,0 +1,350 @@
+import os
+import gi
+
+gi.require_version("Gtk", "4.0")
+gi.require_version("Adw", "1")
+gi.require_version("GtkSource", "5")
+from gi.repository import Gtk, Adw, GtkSource, GObject, Gio
+
+# Ключевые слова Lua для автодополнения и подсветки
+LUA_KEYWORDS = [
+    "and", "break", "do", "else", "elseif", "end", "false", "for", "function", 
+    "goto", "if", "in", "local", "nil", "not", "or", "repeat", "return", 
+    "then", "true", "until", "while"
+]
+
+class LuaEditor(Gtk.Application):
+    def __init__(self):
+        super().__init__(
+            application_id="com.example.LuaEditor",
+            flags=Gio.ApplicationFlags.DEFAULT_FLAGS
+        )
+        self.window = None
+
+    def do_activate(self):
+        if not self.window:
+            self.window = EditorWindow(application=self)
+        self.window.present()
+
+class EditorWindow(Adw.ApplicationWindow):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.set_title("Lua Editor")
+        self.set_default_size(800, 600)
+        
+        # Настройка темной темы
+        style_manager = Adw.StyleManager.get_default()
+        style_manager.set_color_scheme(Adw.ColorScheme.FORCE_DARK)
+        
+        # Основной макет
+        self.main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.set_content(self.main_box)
+        
+        # Панель вкладок
+        self.tab_view = Adw.TabView()
+        tab_overview = Adw.TabOverview.new()
+        tab_overview.set_view(self.tab_view)
+        
+        # Кнопки управления вкладками
+        self.tab_bar = Adw.TabBar(view=self.tab_view)
+        new_tab_btn = Gtk.Button.new_from_icon_name("tab-new-symbolic")
+        new_tab_btn.connect("clicked", self.on_new_tab)
+        self.tab_bar.set_start_action_widget(new_tab_btn)
+        self.tab_bar.set_end_action_widget(tab_overview)
+        
+        # Панель инструментов
+        self.header = Adw.HeaderBar()
+        self.setup_header_actions()
+        self.main_box.append(self.header)
+        self.main_box.append(self.tab_bar)
+        self.main_box.append(self.tab_view)
+        
+        # Поисковая панель (изначально скрыта)
+        self.search_revealer = Gtk.Revealer()
+        self.setup_search_panel()
+        self.main_box.append(self.search_revealer)
+        
+        # Инициализация
+        self.new_tab_count = 1
+        self.on_new_tab()
+        self.add_shortcuts()
+
+    def setup_header_actions(self):
+        # Меню файлов
+        menu = Gio.Menu()
+        
+        # Действия
+        actions = [
+            ("new", self.on_new_tab, "win.new", "<primary>n"),
+            ("open", self.on_open, "win.open", "<primary>o"),
+            ("save", self.on_save, "win.save", "<primary>s"),
+            ("saveas", self.on_save_as, "win.saveas", "<primary><shift>s"),
+            ("find", self.toggle_search, "win.find", "<primary>f"),
+        ]
+        
+        for name, handler, action_id, accel in actions:
+            action = Gio.SimpleAction.new(name, None)
+            action.connect("activate", handler)
+            self.add_action(action)
+            self.get_application().set_accels_for_action(action_id, [accel])
+            menu.append(f"_{name.capitalize()}", action_id)
+        
+        # Кнопка меню
+        menu_btn = Gtk.MenuButton()
+        menu_btn.set_icon_name("open-menu-symbolic")
+        menu_btn.set_menu_model(menu)
+        self.header.pack_end(menu_btn)
+
+    def setup_search_panel(self):
+        search_box = Gtk.Box(spacing=6, margin=6)
+        
+        self.search_entry = Gtk.SearchEntry(placeholder_text="Поиск...")
+        self.search_entry.set_hexpand(True)
+        self.search_entry.connect("search-changed", self.on_search_changed)
+        
+        replace_entry = Gtk.Entry(placeholder_text="Заменить...")
+        replace_entry.set_hexpand(True)
+        
+        find_btn = Gtk.Button(label="Найти")
+        find_btn.connect("clicked", self.on_find_clicked)
+        
+        replace_btn = Gtk.Button(label="Заменить")
+        replace_btn.connect("clicked", self.on_replace_clicked, replace_entry)
+        
+        close_btn = Gtk.Button(icon_name="window-close-symbolic")
+        close_btn.connect("clicked", self.toggle_search)
+        
+        search_box.append(self.search_entry)
+        search_box.append(replace_entry)
+        search_box.append(find_btn)
+        search_box.append(replace_btn)
+        search_box.append(close_btn)
+        
+        self.search_revealer.set_child(search_box)
+
+    def create_editor(self):
+        # Источник буфера с подсветкой Lua
+        buffer = GtkSource.Buffer()
+        lm = GtkSource.LanguageManager()
+        language = lm.get_language("lua")
+        if not language:
+            # Создаем базовую подсветку если нет встроенной
+            language = GtkSource.Language.new()
+            for word in LUA_KEYWORDS:
+                language.add_keyword(word)
+        buffer.set_language(language)
+        
+        # Редактор
+        editor = GtkSource.View(buffer=buffer)
+        editor.set_show_line_numbers(True)
+        editor.set_monospace(True)
+        editor.set_hexpand(True)
+        editor.set_vexpand(True)
+        
+        # Настройка шрифта
+        self.font_size = 12
+        self.update_font(editor)
+        
+        # Автодополнение
+        completion = editor.get_completion()
+        completion_words = GtkSource.CompletionWords()
+        for word in LUA_KEYWORDS:
+            completion_words.register(word)
+        completion.add_provider(completion_words)
+        
+        return editor
+
+    def on_new_tab(self, *args):
+        editor = self.create_editor()
+        scrolled = Gtk.ScrolledWindow()
+        scrolled.set_child(editor)
+        
+        tab_page = self.tab_view.append(scrolled)
+        tab_page.set_title(f"Новый {self.new_tab_count}")
+        tab_page.set_icon(Gio.ThemedIcon.new("text-x-generic"))
+        self.new_tab_count += 1
+        
+        self.tab_view.set_selected_page(tab_page)
+        return tab_page
+
+    def get_current_editor(self):
+        page = self.tab_view.get_selected_page()
+        if not page:
+            return None
+        return page.get_child().get_child()
+
+    def get_current_buffer(self):
+        editor = self.get_current_editor()
+        return editor.get_buffer() if editor else None
+
+    def on_open(self, *args):
+        dialog = Gtk.FileChooserNative(
+            title="Открыть файл",
+            transient_for=self,
+            action=Gtk.FileChooserAction.OPEN
+        )
+        
+        def on_response(dialog, response):
+            if response == Gtk.ResponseType.ACCEPT:
+                file = dialog.get_file()
+                self.load_file(file)
+        
+        dialog.connect("response", on_response)
+        dialog.show()
+
+    def load_file(self, file):
+        try:
+            success, content, _ = file.load_contents(None)
+            if not success:
+                return
+                
+            editor = self.create_editor()
+            editor.get_buffer().set_text(content.decode("utf-8"))
+            
+            scrolled = Gtk.ScrolledWindow()
+            scrolled.set_child(editor)
+            
+            tab_page = self.tab_view.append(scrolled)
+            tab_page.set_title(file.get_basename())
+            tab_page.set_icon(Gio.ThemedIcon.new("text-x-generic"))
+            self.tab_view.set_selected_page(tab_page)
+            
+            # Сохраняем путь к файлу в странице
+            tab_page.file_path = file.get_path()
+            
+        except Exception as e:
+            print(f"Ошибка загрузки файла: {e}")
+
+    def on_save(self, *args):
+        page = self.tab_view.get_selected_page()
+        if not page:
+            return
+            
+        if hasattr(page, 'file_path'):
+            self.save_to_file(page, page.file_path)
+        else:
+            self.on_save_as()
+
+    def on_save_as(self, *args):
+        page = self.tab_view.get_selected_page()
+        if not page:
+            return
+            
+        dialog = Gtk.FileChooserNative(
+            title="Сохранить как",
+            transient_for=self,
+            action=Gtk.FileChooserAction.SAVE
+        )
+        
+        def on_response(dialog, response):
+            if response == Gtk.ResponseType.ACCEPT:
+                file = dialog.get_file()
+                self.save_to_file(page, file.get_path())
+                page.file_path = file.get_path()
+                page.set_title(file.get_basename())
+        
+        dialog.connect("response", on_response)
+        dialog.show()
+
+    def save_to_file(self, page, path):
+        try:
+            editor = page.get_child().get_child()
+            buffer = editor.get_buffer()
+            start = buffer.get_start_iter()
+            end = buffer.get_end_iter()
+            text = buffer.get_text(start, end, False)
+            
+            with open(path, "w") as f:
+                f.write(text)
+                
+        except Exception as e:
+            print(f"Ошибка сохранения файла: {e}")
+
+    def toggle_search(self, *args):
+        self.search_revealer.set_reveal_child(
+            not self.search_revealer.get_reveal_child()
+        )
+        if self.search_revealer.get_reveal_child():
+            self.search_entry.grab_focus()
+
+    def on_search_changed(self, entry):
+        self.do_search(entry.get_text())
+
+    def on_find_clicked(self, btn):
+        self.do_search(self.search_entry.get_text())
+
+    def on_replace_clicked(self, btn, replace_entry):
+        search_text = self.search_entry.get_text()
+        replace_text = replace_entry.get_text()
+        if not search_text:
+            return
+            
+        buffer = self.get_current_buffer()
+        if not buffer:
+            return
+            
+        # Ищем и заменяем текущее выделение
+        if buffer.get_has_selection():
+            start, end = buffer.get_selection_bounds()
+            selected = buffer.get_text(start, end, False)
+            if selected == search_text:
+                buffer.begin_user_action()
+                buffer.delete(start, end)
+                buffer.insert(start, replace_text)
+                buffer.end_user_action()
+        
+        # Ищем следующее вхождение
+        self.do_search(search_text)
+
+    def do_search(self, text):
+        buffer = self.get_current_buffer()
+        if not buffer or not text:
+            return
+            
+        start = buffer.get_start_iter()
+        found, match_start, match_end = start.forward_search(
+            text, 
+            Gtk.TextSearchFlags.CASE_INSENSITIVE, 
+            None
+        )
+        
+        if found:
+            buffer.select_range(match_start, match_end)
+            self.get_current_editor().scroll_to_iter(
+                match_start, 0.0, True, 0.5, 0.5
+            )
+
+    def update_font(self, editor):
+        font_desc = f"monospace {self.font_size}"
+        editor.override_font(Pango.FontDescription.from_string(font_desc))
+
+    def add_shortcuts(self):
+        controller = Gtk.ShortcutController()
+        controller.set_scope(Gtk.ShortcutScope.GLOBAL)
+        
+        # Увеличение шрифта: Ctrl +
+        zoom_in = Gtk.Shortcut.new(
+            Gtk.ShortcutTrigger.parse_string("<Primary>plus"),
+            Gtk.CallbackAction.new(lambda *_: self.adjust_font_size(2))
+        )
+        controller.add_shortcut(zoom_in)
+        
+        # Уменьшение шрифта: Ctrl -
+        zoom_out = Gtk.Shortcut.new(
+            Gtk.ShortcutTrigger.parse_string("<Primary>minus"),
+            Gtk.CallbackAction.new(lambda *_: self.adjust_font_size(-2))
+        )
+        controller.add_shortcut(zoom_out)
+        
+        self.add_controller(controller)
+
+    def adjust_font_size(self, delta):
+        self.font_size = max(8, min(self.font_size + delta, 48))
+        for i in range(self.tab_view.get_n_pages()):
+            page = self.tab_view.get_nth_page(i)
+            editor = page.get_child().get_child()
+            self.update_font(editor)
+
+if __name__ == "__main__":
+    app = LuaEditor()
+    app.run()
