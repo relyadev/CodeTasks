@@ -4,24 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf8c5dae-8c01-45df-b014-2b72e0333e42" name="Changes" comment="main, auth, profile">
-      <change afterPath="$PROJECT_DIR$/.idea/ruff.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/profile_edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeTasks/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeTasks/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeTasks/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeTasks/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/leaders.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/leaders.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/registration.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/tasks.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tasks.html" afterDir="false" />
-    </list>
+    <list default="true" id="bf8c5dae-8c01-45df-b014-2b72e0333e42" name="Changes" comment="full models, profile, edit profile" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -169,7 +152,7 @@
       <workItem from="1752580132706" duration="26000" />
       <workItem from="1752580195072" duration="1466000" />
       <workItem from="1752586620564" duration="506000" />
-      <workItem from="1752763254143" duration="3553000" />
+      <workItem from="1752763254143" duration="3627000" />
     </task>
     <task id="LOCAL-00001" summary="auth and 40x and errors">
       <option name="closed" value="true" />
@@ -219,7 +202,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752075249933</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="full models, profile, edit profile">
+      <option name="closed" value="true" />
+      <created>1752767514143</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1752767514144</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,6 +233,7 @@
     <MESSAGE value="new logic for getting all solved tasks, with ForeignKey" />
     <MESSAGE value="ordering by a date solution" />
     <MESSAGE value="main, auth, profile" />
-    <option name="LAST_COMMIT_MESSAGE" value="main, auth, profile" />
+    <MESSAGE value="full models, profile, edit profile" />
+    <option name="LAST_COMMIT_MESSAGE" value="full models, profile, edit profile" />
   </component>
 </project>
