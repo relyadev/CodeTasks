@@ -5,8 +5,6 @@ from app.forms import RegistrationForm, EditProfileForm
 from .models import UserProfile, Task, User, News
 from django_ratelimit.decorators import ratelimit
 
-
-
 def handler404(request, exception):
     return render(request, "errors/404.html", status=404)
 

@@ -152,7 +152,7 @@
       <workItem from="1752580132706" duration="26000" />
       <workItem from="1752580195072" duration="1466000" />
       <workItem from="1752586620564" duration="506000" />
-      <workItem from="1752763254143" duration="3627000" />
+      <workItem from="1752763254143" duration="4054000" />
     </task>
     <task id="LOCAL-00001" summary="auth and 40x and errors">
       <option name="closed" value="true" />
@@ -210,7 +210,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752767514144</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="full models, profile, edit profile">
+      <option name="closed" value="true" />
+      <created>1752767588547</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1752767588547</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
