@@ -62,13 +62,7 @@ def profile(request, username):
     last_solved_tasks = all_solved_tasks.order_by('-solution__date_solution')[:3]
     badges = user_profile.badges.all()
 
-    complexity_distribution = {
-        0: all_solved_tasks.filter(complexity=0).count(),
-        1: all_solved_tasks.filter(complexity=1).count(),
-        2: all_solved_tasks.filter(complexity=2).count(),
-        3: all_solved_tasks.filter(complexity=3).count(),
-        4: all_solved_tasks.filter(complexity=4).count()
-    }
+    complexity_distribution = {i: all_solved_tasks.filter(complexity=i).count() for i in range(5)}
 
     context = {
         'profile': user_profile,
