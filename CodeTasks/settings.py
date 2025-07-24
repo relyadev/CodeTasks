@@ -136,5 +136,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = "relyadev@gmail.com"
-EMAIL_HOST_PASSWORD = "cdmm qnup ghol fpir"
+EMAIL_HOST_PASSWORD = "cdmm qnup ghol fpir" # this app key deleted
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

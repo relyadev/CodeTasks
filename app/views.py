@@ -2,7 +2,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest
 from django.shortcuts import  redirect, render, get_object_or_404
 from app.forms import RegistrationForm, EditProfileForm
-from .models import UserProfile, Task, User, News
+from .models import UserProfile, Task, User, News, Test
 from django_ratelimit.decorators import ratelimit
 
 def handler404(request, exception):
@@ -38,7 +38,7 @@ def tasks(request):
     tasks_list = Task.objects.all()
     return render(request, "tasks.html", {'tasks': tasks_list})
 
-# views.py
+
 def leaders(request):
     leaders_list = UserProfile.objects.all().order_by('-points')
     total_tasks = Task.objects.count()
@@ -74,6 +74,7 @@ def profile(request, username):
 
     return render(request, 'profile.html', context)
 @ratelimit(key='ip', rate='1/s', block=True)
+
 def edit_profile(req: HttpRequest):
     user = req.user
     user_profile = get_object_or_404(User, id=user.id)
@@ -92,5 +93,11 @@ def edit_profile(req: HttpRequest):
     return render(req, "profile_edit.html", {"user_profile": user_profile, "form": form})
 
 
-
-
+def ide(request: HttpRequest, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    tests = Test.objects.filter(task=task)
+    context = {
+        "task": task,
+        "tests": tests
+    }
+    return render(request, "ide.html", context)

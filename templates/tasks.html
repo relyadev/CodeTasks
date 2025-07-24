@@ -81,6 +81,7 @@
             border-radius: 20px;
             cursor: pointer;
             font-weight: 500;
+            text-decoration: none;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
@@ -141,7 +142,7 @@
         {% for task in tasks %}
             <div class="task-card">
                 <div class="task-header">
-                    <a href="#" class="task-title">{{ task.title }}</a>
+                    <a href="{% url 'ide' task.id %}" class="task-title">{{ task.title }}</a>
                     <span class="task-complexity complexity-{{ task.get_complexity_display|lower }}">
                 <span class="material-icons">{% if task.complexity == 0 %}check_circle{% elif task.complexity == 1 %}
                     warning{% elif task.complexity == 2 %}error{% elif task.complexity == 3 %}whatshot{% else %}
@@ -157,10 +158,10 @@
                         <span class="material-icons">military_tech</span>
                         <span>{{ task.award_points }} очков</span>
                     </div>
-                    <button class="solve-button">
+                    <a class="solve-button" href="{% url 'ide' task.id %}">
                         <span class="material-icons">code</span>
                         Решить
-                    </button>
+                    </a>
                 </div>
             </div>
         {% empty %}

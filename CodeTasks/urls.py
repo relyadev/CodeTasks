@@ -7,6 +7,7 @@ import subprocess
 urlpatterns = [
     path("", views.main, name="main"),
     path("tasks/", views.tasks, name="tasks"),
+    path("ide/<int:task_id>", views.ide, name="ide"),
     path("profile/edit/", views.edit_profile, name="edit_profile"),
     path("profile/<str:username>/", views.profile, name="profile"),
     path("leaders/", views.leaders, name="leaders"),
