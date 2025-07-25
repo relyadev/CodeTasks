@@ -1,4 +1,4 @@
-#!/home/user/CodeTasks/.venv/bin/python
+#!/home/user/PycharmProjects/CodeTasks/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -5,6 +5,7 @@ from app.forms import RegistrationForm, EditProfileForm
 from .models import UserProfile, Task, User, News, Test
 from django_ratelimit.decorators import ratelimit
 
+
 def handler404(request, exception):
     return render(request, "errors/404.html", status=404)
 
@@ -33,12 +34,9 @@ def main(request):
     }
     return render(request, "main.html", context)
 
-
 def tasks(request):
     tasks_list = Task.objects.all()
     return render(request, "tasks.html", {'tasks': tasks_list})
-
-
 def leaders(request):
     leaders_list = UserProfile.objects.all().order_by('-points')
     total_tasks = Task.objects.count()
@@ -52,7 +50,6 @@ def leaders(request):
 def profile(request, username):
     user = get_object_or_404(User, username=username)
     user_profile = get_object_or_404(UserProfile, user__username=username)
-
     all_solved_tasks = Task.objects.filter(
         solution__user=user,
         solution__is_solved=True
@@ -61,7 +58,6 @@ def profile(request, username):
     solved_tasks_count = all_solved_tasks.count()
     last_solved_tasks = all_solved_tasks.order_by('-solution__date_solution')[:3]
     badges = user_profile.badges.all()
-
     complexity_distribution = {i: all_solved_tasks.filter(complexity=i).count() for i in range(5)}
 
     context = {
