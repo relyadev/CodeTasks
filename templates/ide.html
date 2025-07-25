@@ -249,8 +249,8 @@
         <div class="console-header">
             <div class="console-title">Консоль выполнения</div>
             <div class="console-controls">
-                <button id="run-button">▶ Запустить</button>
-                <button id="submit-button">✓ Отправить</button>
+                <button id="run-button">Запустить</button>
+                <button id="submit-button">Отправить</button>
             </div>
         </div>
         <div id="console-output" class="console-content">> Готов к выполнению кода...</div>
@@ -283,13 +283,9 @@
         document.getElementById('run-button').addEventListener('click', function() {
             const code = window.editor.getValue();
             const output = document.getElementById('console-output');
-            output.textContent = "> Запуск кода...\n";
-            
             // Эмуляция выполнения кода
             setTimeout(() => {
-                output.textContent += "> Тест 1: Успешно ✓ (15ms)\n";
-                output.textContent += "> Тест 2: Успешно ✓ (22ms)\n";
-                output.textContent += "> Все тесты пройдены!\n";
+                output.textContent += "TEST";
                 output.scrollTop = output.scrollHeight;
             }, 800);
         });

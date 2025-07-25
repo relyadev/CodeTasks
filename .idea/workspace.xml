@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf8c5dae-8c01-45df-b014-2b72e0333e42" name="Changes" comment="ide ready">
+    <list default="true" id="bf8c5dae-8c01-45df-b014-2b72e0333e42" name="Changes" comment="auth check">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/ide.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/ide.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/tasks.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tasks.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +157,7 @@
       <workItem from="1752586620564" duration="506000" />
       <workItem from="1752763254143" duration="4054000" />
       <workItem from="1753369516266" duration="2692000" />
-      <workItem from="1753427427590" duration="5790000" />
+      <workItem from="1753427427590" duration="7114000" />
     </task>
     <task id="LOCAL-00001" summary="auth and 40x and errors">
       <option name="closed" value="true" />
@@ -235,7 +231,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753431067477</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="auth check">
+      <option name="closed" value="true" />
+      <created>1753434599623</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1753434599623</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,6 +264,7 @@
     <MESSAGE value="main, auth, profile" />
     <MESSAGE value="full models, profile, edit profile" />
     <MESSAGE value="ide ready" />
-    <option name="LAST_COMMIT_MESSAGE" value="ide ready" />
+    <MESSAGE value="auth check" />
+    <option name="LAST_COMMIT_MESSAGE" value="auth check" />
   </component>
 </project>
