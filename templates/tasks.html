@@ -1,6 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
     <style>
+        .page-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--md-sys-color-primary);
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        /* Подчеркивание с отступами */
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 15%;
+            right: 15%;
+            height: 3px;
+            background-color: var(--md-sys-color-primary);
+            margin: 0 auto;
+        }
+
         .tasks-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -116,18 +147,23 @@
             color: #9C27B0;
         }
 
-        /* Стили для заголовка страницы */
-        .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+        /* Адаптация для мобильных устройств */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .page-title::after {
+                left: 10%;
+                right: 10%;
+            }
         }
 
-        .page-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--md-sys-color-primary);
+        @media (max-width: 480px) {
+            .page-title::after {
+                left: 5%;
+                right: 5%;
+            }
         }
     </style>
 

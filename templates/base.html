@@ -22,269 +22,262 @@
         document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
     </script>
     <style>
-        :root {
-            /* Оптимизированная цветовая палитра */
-            --md-sys-color-primary: #bb86fc;
-            --md-sys-color-on-primary: #000000;
-            --md-sys-color-primary-container: #8168e6;
-            --md-sys-color-secondary: #bb86fc;
-            --md-sys-color-surface: #1a1a1a;
-            --md-sys-color-on-surface: #ffffff;
-            --md-sys-color-surface-variant: #2a2a2a;
-            --md-sys-color-error: #ff8a9e;
-            --md-sys-color-outline: #a5a1aa;
-            --md-ref-typeface-brand: 'Roboto', sans-serif;
-            --md-ref-typeface-plain: 'Roboto', sans-serif;
-        }
+    :root {
+        /* Оптимизированная цветовая палитра */
+        --md-sys-color-primary: #bb86fc;
+        --md-sys-color-on-primary: #000000;
+        --md-sys-color-primary-container: #8168e6;
+        --md-sys-color-secondary: #bb86fc;
+        --md-sys-color-surface: #1a1a1a;
+        --md-sys-color-on-surface: #ffffff;
+        --md-sys-color-surface-variant: #2a2a2a;
+        --md-sys-color-error: #ff8a9e;
+        --md-sys-color-outline: #a5a1aa;
+        --md-ref-typeface-brand: 'Roboto', sans-serif;
+        --md-ref-typeface-plain: 'Roboto', sans-serif;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        body {
-            font-family: var(--md-ref-typeface-plain);
-            color: var(--md-sys-color-on-surface);
-            background-color: #121212;
-            line-height: 1.6;
-            font-size: 16px;
-        }
+    body {
+        font-family: var(--md-ref-typeface-plain);
+        color: var(--md-sys-color-on-surface);
+        background-color: #121212;
+        line-height: 1.6;
+        font-size: 16px;
+    }
 
-        /* Header Styles */
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 20px;
-            background-color: var(--md-sys-color-surface);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
+    /* Header Styles - COMPACT VERSION */
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 20px; /* Уменьшено с 10px */
+        background-color: var(--md-sys-color-surface);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
 
-        /* Левый блок: логотип + навигация */
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
+    /* Левый блок: логотип + навигация */
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: var(--md-ref-typeface-brand);
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: var(--md-sys-color-primary);
-            text-decoration: none;
-            white-space: nowrap;
-        }
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--md-ref-typeface-brand);
+        font-weight: 700;
+        font-size: 1.4rem;
+        color: var(--md-sys-color-primary);
+        text-decoration: none;
+        white-space: nowrap;
+    }
 
-        .logo-icon {
-            color: var(--md-sys-color-primary);
-            font-size: 28px;
-        }
+    .logo-icon {
+        color: var(--md-sys-color-primary);
+        font-size: 28px;
+    }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 10px;
-            padding: 0;
-            margin: 0;
-        }
+    nav ul {
+        display: flex;
+        list-style: none;
+        gap: 10px;
+        padding: 0;
+        margin: 0;
+    }
 
-        nav a {
-            text-decoration: none;
-            color: var(--md-sys-color-on-surface);
-            font-weight: 500;
-            font-size: 1.05rem;
-            padding: 10px 20px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            display: inline-flex; /* Изменено для выравнивания иконок */
-            align-items: center;
-            gap: 8px; /* Отступ между иконкой и текстом */
-        }
+    nav a {
+        text-decoration: none;
+        color: var(--md-sys-color-on-surface);
+        font-weight: 500;
+        font-size: 1.05rem;
+        padding: 8px 16px; /* Уменьшено с 10px 20px */
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
 
-        nav a:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
+    nav a:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
 
-        /* Иконки навигации */
-        .nav-icon {
-            font-size: 22px; /* Размер иконок */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    /* Иконки навигации */
+    .nav-icon {
+        font-size: 20px; /* Уменьшено с 22px */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-        /* Выделение активного меню */
-        nav a.active {
-            background-color: var(--md-sys-color-primary-container);
-            color: #ffffff;
-            font-weight: 700;
-        }
+    /* Выделение активного меню */
+    nav a.active {
+        background-color: var(--md-sys-color-primary-container);
+        color: #ffffff;
+        font-weight: 700;
+    }
 
-        /* Dropdown Menu */
-        .dropdown {
-            position: relative;
-        }
+    /* Dropdown Menu */
+    .dropdown {
+        position: relative;
+    }
 
-        /* Исправленный аватар - убрал margin-right */
-        .avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: white;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
+    /* Уменьшенный аватар */
+    .avatar {
+        width: 34px; /* Уменьшено с 38px */
+        height: 34px; /* Уменьшено с 38px */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem; /* Уменьшено с 1.2rem */
+        font-weight: bold;
+        color: white;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+    }
 
-        /* Кнопка выпадающего меню - добавлены отступы */
-        .dropdown-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px; /* Добавлены боковые отступы */
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
+    /* Кнопка выпадающего меню */
+    .dropdown-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px; /* Уменьшено с 8px 12px */
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
 
-        .dropdown-button:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
+    .dropdown-button:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
 
-        /* Плавное увеличение аватара при наведении на кнопку */
-        .dropdown-button:hover .avatar {
-            transform: scale(1.1);
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-        }
+    .dropdown-button:hover .avatar {
+        transform: scale(1.1);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    }
 
-        /* Выпадающее меню - улучшенные стили */
-        .dropdown-content {
-            position: absolute;
-            right: 0;
-            top: 100%;
-            min-width: 220px;
-            background: var(--md-sys-color-surface);
-            border-radius: 12px;
-            padding: 6px 0; /* Уменьшен вертикальный padding */
-            margin-top: 8px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 100;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
+    /* Выпадающее меню */
+    .dropdown-content {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        min-width: 220px;
+        background: var(--md-sys-color-surface);
+        border-radius: 12px;
+        padding: 6px 0;
+        margin-top: 6px; /* Уменьшено с 8px */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 100;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
 
-        .dropdown:hover .dropdown-content {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
+    .dropdown:hover .dropdown-content {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
 
-        .dropdown-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 20px;
-            text-decoration: none;
-            color: var(--md-sys-color-on-surface);
-            transition: all 0.2s;
-            font-size: 1rem;
-            position: relative;
-            z-index: 1;
-        }
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 20px;
+        text-decoration: none;
+        color: var(--md-sys-color-on-surface);
+        transition: all 0.2s;
+        font-size: 1rem;
+        position: relative;
+        z-index: 1;
+    }
 
-        /* Скругление углов для первого элемента */
-        .dropdown-item:first-child:hover {
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
+    .dropdown-item:first-child:hover {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
 
-        /* Скругление углов для последнего элемента */
-        .dropdown-item:last-child:hover {
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-        }
+    .dropdown-item:last-child:hover {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
 
-        /* Улучшенный ховер-эффект */
-        .dropdown-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-        }
+    .dropdown-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
 
-        /* Иконки в выпадающем меню */
-        .dropdown-icon {
-            font-size: 22px;
-            color: var(--md-sys-color-secondary);
-            transition: transform 0.2s ease;
-        }
+    .dropdown-icon {
+        font-size: 22px;
+        color: var(--md-sys-color-secondary);
+        transition: transform 0.2s ease;
+    }
 
-        .dropdown-item:hover .dropdown-icon {
-            transform: translateX(3px);
-        }
+    .dropdown-item:hover .dropdown-icon {
+        transform: translateX(3px);
+    }
 
-        /* Стили для кнопки выхода */
-        .logout-form {
-            display: block;
-            width: 100%;
-            padding: 0;
-            margin: 0;
-            background: none;
-            border: none;
-        }
+    .logout-form {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        background: none;
+        border: none;
+    }
 
-        .logout-button {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 20px;
-            width: 100%;
-            text-align: left;
-            background: none;
-            border: none;
-            color: var(--md-sys-color-on-surface);
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+    .logout-button {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 20px;
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        color: var(--md-sys-color-on-surface);
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
 
-        .logout-button:hover {
-            background: rgba(255, 255, 255, 0.08);
-        }
+    .logout-button:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
 
-        .logout-button:hover .dropdown-icon {
-            transform: translateX(3px);
-        }
+    .logout-button:hover .dropdown-icon {
+        transform: translateX(3px);
+    }
 
-        /* Скругление углов для кнопки выхода при ховере */
-        .logout-form:last-child .logout-button:hover {
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-        }
+    .logout-form:last-child .logout-button:hover {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
 
-        /* Main Content */
-        main {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 24px;
-        }
-    </style>
+    /* Main Content */
+    main {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 24px;
+    }
+</style>
 </head>
 <body>
 <header>
@@ -331,7 +324,7 @@
         </nav>
     </div>
 
-    <!-- Выпадающее меню справа -->
+    {% if request.user.is_authenticated %}
     <div class="dropdown">
         <button class="dropdown-button">
             <div class="avatar"
@@ -357,6 +350,26 @@
             </form>
         </div>
     </div>
+        {% else %}
+        <div class="dropdown">
+        <button class="dropdown-button">
+            <div class="avatar"
+                 style="background: linear-gradient(135deg, {{ user_profile.color1|default:'#9d6bff' }}, {{ user_profile.color2|default:'#4a00e0' }});">
+                ?
+            </div>
+        </button>
+        <div class="dropdown-content">
+            <a href="{% url 'login'%}" class="dropdown-item">
+                <span class="material-icons dropdown-icon">person</span>
+                <span>Вход</span>
+            </a>
+            <a href="{% url 'register' %}" class="dropdown-item">
+                <span class="material-icons dropdown-icon">settings</span>
+                <span>Регистрация</span>
+            </a>
+        </div>
+    </div>
+    {% endif %}
 </header>
 
 <main>
