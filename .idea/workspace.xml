@@ -5,7 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf8c5dae-8c01-45df-b014-2b72e0333e42" name="Changes" comment="auth check">
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/CodeTasks.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CodeTasks.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/bin/activate" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/bin/activate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/bin/activate.csh" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/bin/activate.csh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/bin/activate.fish" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/bin/activate.fish" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/bin/django-admin" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/bin/django-admin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/bin/pip" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/bin/pip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/bin/pip3" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/bin/pip3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/bin/python" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/bin/python" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/bin/sqlformat" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/bin/sqlformat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/pyvenv.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/pyvenv.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeTasks/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeTasks/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeTasks/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeTasks/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/migrations/0002_badge_rename_date_solved_solution_date_solution_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/migrations/0003_solution_language.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/migrations/0004_userprofile_slug.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/migrations/0005_remove_userprofile_slug.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/migrations/0006_news.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/ide.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/ide.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,8 +61,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/relyadev/CodeTasks.git&quot;,
-    &quot;accountId&quot;: &quot;f9a5eaf9-5616-49c7-a7d2-d9d421f18db3&quot;
+    &quot;url&quot;: &quot;https://github.com/relyadev/CodeTasks&quot;,
+    &quot;accountId&quot;: &quot;30708cb5-e874-486e-88b2-99778663ab27&quot;
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
@@ -48,9 +73,9 @@
       <scroll-view-position x="0" y="0" />
     </layout>
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 3
-}</component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
   <component name="ProjectId" id="2zM5r3j6qr7YZnaCOgeMkm4NTXf" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -70,19 +95,20 @@
     &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/user/Загрузки/Material_Theme_UI-9.8.1.zip&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/user/CodeTasks&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -116,8 +142,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-PY-251.26927.90" />
-        <option value="bundled-python-sdk-41e8cd69c857-64d779b69b7a-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.26927.90" />
+        <option value="bundled-js-predefined-d6986cc7102b-e03c56caf84a-JavaScript-PY-252.23892.515" />
+        <option value="bundled-python-sdk-7e47963ff851-f0eec537fc84-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.23892.515" />
       </set>
     </attachedChunks>
   </component>
@@ -158,6 +184,14 @@
       <workItem from="1752763254143" duration="4054000" />
       <workItem from="1753369516266" duration="2692000" />
       <workItem from="1753427427590" duration="7114000" />
+      <workItem from="1755095226311" duration="133000" />
+      <workItem from="1755095375159" duration="4010000" />
+      <workItem from="1755099424074" duration="1862000" />
+      <workItem from="1755168554930" duration="96000" />
+      <workItem from="1755183841860" duration="3129000" />
+      <workItem from="1755258449715" duration="1192000" />
+      <workItem from="1755530866579" duration="1078000" />
+      <workItem from="1755533960600" duration="2367000" />
     </task>
     <task id="LOCAL-00001" summary="auth and 40x and errors">
       <option name="closed" value="true" />

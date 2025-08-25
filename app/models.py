@@ -16,6 +16,7 @@ class Badge(models.Model):
     def __str__(self):
         return self.name
 
+
 class Task(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
@@ -32,6 +33,7 @@ class Task(models.Model):
     def __str__(self):
         return self.title
 
+
 class Test(models.Model):
     stdin = models.TextField()
     stdout = models.TextField()
@@ -39,6 +41,7 @@ class Test(models.Model):
 
     def __str__(self):
         return f"Test for {self.task.title}"
+
 
 class UserProfile(models.Model):
     resolved_task_count = models.IntegerField(default=0)
@@ -49,29 +52,33 @@ class UserProfile(models.Model):
     def __str__(self):
         return f"UserProfile for {self.user.username}"
 
-class Solution(models.Model):
-    LANGUAGE_CHOICES = [
-        ('python', "Python"),
-        ('java', "Java"),
-        ('c++', "C++"),
-        ('c#', "C#"),
-        ('javascript', "JavaScript"),
-        ('pascal', "Pascal")
-    ]
 
-    language = models.CharField(
-        max_length=20,
-        choices=LANGUAGE_CHOICES,
-        default='python'
-    )
+class Language(models.Model):
+    LANGUAGE_CHOICES = [
+        (71, "Python"),
+        (62, "Java"),
+        (54, "C++"),
+        (51, "C#"),
+        (63, "JavaScript"),
+        (67, "Pascal")
+    ]
+    language = models.IntegerField(choices=LANGUAGE_CHOICES,
+                                   default=71
+                                   )
+    
+
+
+class Solution(models.Model):
     code = models.TextField()
     is_solved = models.BooleanField(default=False)
     date_solution = models.DateTimeField(auto_now_add=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='solutions')
+    language = models.ForeignKey(Language, on_delete=models.DO_NOTHING, related_name='languages')
 
     def __str__(self):
         return f"Solution for {self.task.title} by {self.user.username}"
+
 
 class News(models.Model):
     title = models.CharField(max_length=100)

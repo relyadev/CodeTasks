@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
 from app import views
-import subprocess
 
 
 urlpatterns = [
@@ -14,5 +13,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('django.contrib.auth.urls')),
     path('register/', views.register, name='register'),
+    path("submit/", views.submit, name="submit")
 
 ]

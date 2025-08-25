@@ -1,305 +1,325 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<style>
-    html, body {
-        overflow: hidden;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    
-    .task-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr auto;
-        gap: 20px;
-        height: calc(100vh - 100px);
-        padding: 20px;
-        box-sizing: border-box;
-    }
-
-    .task-description {
-        grid-column: 1;
-        grid-row: 1 / span 2;
-        background-color: var(--md-sys-color-surface-variant);
-        border-radius: 12px;
-        padding: 24px;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .editor-container {
-        grid-column: 2;
-        grid-row: 1;
-        display: flex;
-        flex-direction: column;
-        background-color: #1e1e1e;
-        border-radius: 12px;
-        overflow: hidden;
-    }
-
-    .console-container {
-        grid-column: 2;
-        grid-row: 2;
-        display: flex;
-        flex-direction: column;
-        background-color: #1e1e1e;
-        border-radius: 12px;
-        overflow: hidden;
-    }
-
-    /* Заголовки блоков */
-    .editor-header, .console-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 16px;
-        background-color: #252526;
-        border-bottom: 1px solid #3c3c3c;
-    }
-
-    .editor-title, .console-title {
-        font-weight: 500;
-        font-size: 1.1rem;
-        color: #d4d4d4;
-    }
-
-    /* Основное содержимое */
-    .editor-wrapper {
-        flex: 1;
-    }
-
-    .console-content {
-        flex: 1;
-        padding: 16px;
-        background-color: #1e1e1e;
-        color: #d4d4d4;
-        overflow-y: auto;
-        font-family: monospace;
-        white-space: pre-wrap;
-        line-height: 1.5;
-    }
-
-    /* Стили для задачи */
-    .task-title {
-        font-size: 1.8rem;
-        margin-bottom: 16px;
-        color: var(--md-sys-color-primary);
-        font-weight: 700;
-    }
-
-    .description-content {
-        line-height: 1.7;
-        flex: 1;
-    }
-
-    .description-content h2, 
-    .description-content h3 {
-        margin: 20px 0 12px;
-        color: var(--md-sys-color-primary);
-    }
-
-    .description-content p {
-        margin-bottom: 16px;
-    }
-
-    /* Минималистичная таблица тестов */
-    .test-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-        background: transparent;
-    }
-
-    .test-table th {
-        padding: 10px 12px;
-        text-align: left;
-        font-weight: 600;
-        color: var(--md-sys-color-primary);
-        border-bottom: 2px solid var(--md-sys-color-primary);
-    }
-
-    .test-table td {
-        padding: 10px 12px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .test-table pre {
-        margin: 0;
-        padding: 0;
-        background: transparent;
-        font-family: monospace;
-        font-size: 0.95rem;
-    }
-
-    /* Кнопки и элементы управления */
-    .language-selector {
-        background-color: #2d2d2d;
-        color: #d4d4d4;
-        border: 1px solid #3c3c3c;
-        border-radius: 4px;
-        padding: 6px 10px;
-        font-family: inherit;
-        font-size: 0.9rem;
-    }
-
-    .console-controls button {
-        background-color: var(--md-sys-color-primary-container);
-        color: white;
-        border: none;
-        border-radius: 4px;
-        padding: 6px 12px;
-        margin-left: 8px;
-        cursor: pointer;
-        font-weight: 500;
-        transition: background-color 0.2s;
-    }
-
-    .console-controls button:hover {
-        background-color: var(--md-sys-color-primary);
-    }
-
-    #run-button {
-        background-color: #8168e6;
-    }
-    
-    #submit-button {
-        background-color: #8168e6;
-    }
-
-    /* Адаптивность */
-    @media (max-width: 1024px) {
-        .task-container {
-            grid-template-columns: 1fr;
-            grid-template-rows: auto auto auto;
-            height: auto;
-            overflow-y: auto;
+    <style>
+        html, body {
+            overflow: hidden;
+            height: 100%;
+            margin: 0;
+            padding: 0;
         }
-        
+
+        .task-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr auto;
+            gap: 20px;
+            height: calc(100vh - 100px);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
         .task-description {
             grid-column: 1;
-            grid-row: 1;
-            max-height: 50vh;
+            grid-row: 1 / span 2;
+            background-color: var(--md-sys-color-surface-variant);
+            border-radius: 12px;
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
-        
-        .editor-container {
-            grid-column: 1;
-            grid-row: 2;
-        }
-        
-        .console-container {
-            grid-column: 1;
-            grid-row: 3;
-        }
-        
-        html, body {
-            overflow: auto;
-        }
-    }
-</style>
 
-<div class="task-container">
-    <!-- Левая часть: Условие задачи -->
-    <div class="task-description">
-        <h1 class="task-title">{{ task.title }}</h1>
-        <div class="description-content">
-            {{ task.description|safe }}
-            
-            <table class="test-table">
-                <thead>
+        .editor-container {
+            grid-column: 2;
+            grid-row: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .console-container {
+            grid-column: 2;
+            grid-row: 2;
+            display: flex;
+            flex-direction: column;
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* Заголовки блоков */
+        .editor-header, .console-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background-color: #252526;
+            border-bottom: 1px solid #3c3c3c;
+        }
+
+        .editor-title, .console-title {
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: #d4d4d4;
+        }
+
+        /* Основное содержимое */
+        .editor-wrapper {
+            flex: 1;
+        }
+
+        .console-content {
+            flex: 1;
+            padding: 16px;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            overflow-y: auto;
+            font-family: monospace;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        /* Стили для задачи */
+        .task-title {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+            color: var(--md-sys-color-primary);
+            font-weight: 700;
+        }
+
+        .description-content {
+            line-height: 1.7;
+            flex: 1;
+        }
+
+        .description-content h2,
+        .description-content h3 {
+            margin: 20px 0 12px;
+            color: var(--md-sys-color-primary);
+        }
+
+        .description-content p {
+            margin-bottom: 16px;
+        }
+
+        /* Минималистичная таблица тестов */
+        .test-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: transparent;
+        }
+
+        .test-table th {
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--md-sys-color-primary);
+            border-bottom: 2px solid var(--md-sys-color-primary);
+        }
+
+        .test-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .test-table pre {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            font-family: monospace;
+            font-size: 0.95rem;
+        }
+
+        /* Кнопки и элементы управления */
+        .language-selector {
+            background-color: #2d2d2d;
+            color: #d4d4d4;
+            border: 1px solid #3c3c3c;
+            border-radius: 4px;
+            padding: 6px 10px;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .console-controls button {
+            background-color: var(--md-sys-color-primary-container);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            margin-left: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .console-controls button:hover {
+            background-color: var(--md-sys-color-primary);
+        }
+
+        #run-button {
+            background-color: #8168e6;
+        }
+
+        #submit-button {
+            background-color: #8168e6;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1024px) {
+            .task-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto;
+                height: auto;
+                overflow-y: auto;
+            }
+
+            .task-description {
+                grid-column: 1;
+                grid-row: 1;
+                max-height: 50vh;
+            }
+
+            .editor-container {
+                grid-column: 1;
+                grid-row: 2;
+            }
+
+            .console-container {
+                grid-column: 1;
+                grid-row: 3;
+            }
+
+            html, body {
+                overflow: auto;
+            }
+        }
+    </style>
+
+    <div class="task-container">
+        <!-- Левая часть: Условие задачи -->
+        <div class="task-description">
+            <h1 class="task-title">{{ task.title }}</h1>
+            <div class="description-content">
+                {{ task.description|safe }}
+
+                <table class="test-table">
+                    <thead>
                     <tr>
                         <th>Входные данные</th>
                         <th>Ожидаемый результат</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     {% for test in tests|slice:":3" %}
-                    <tr>
-                        <td><pre>{{ test.stdin }}</pre></td>
-                        <td><pre>{{ test.stdout }}</pre></td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <pre>{{ test.stdin }}</pre>
+                            </td>
+                            <td>
+                                <pre>{{ test.stdout }}</pre>
+                            </td>
+                        </tr>
                     {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Правая верхняя часть: Редактор кода -->
-    <div class="editor-container">
-        <div class="editor-header">
-            <div class="editor-title">Редактор кода</div>
-            <div>
-                <select id="language-select" class="language-selector">
-                    <option value="python" selected>Python</option>
-                    <option value="javascript">JavaScript</option>
-                    <option value="java">Java</option>
-                    <option value="csharp">C#</option>
-                    <option value="cpp">C++</option>
-                    <option value="pascal">Pascal</option>
-                </select>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div id="editor" class="editor-wrapper"></div>
-    </div>
 
-    <!-- Правая нижняя часть: Консоль -->
-    <div class="console-container">
-        <div class="console-header">
-            <div class="console-title">Консоль выполнения</div>
-            <div class="console-controls">
-                <button id="run-button">Запустить</button>
-                <button id="submit-button">Отправить</button>
+        <!-- Правая верхняя часть: Редактор кода -->
+        <div class="editor-container">
+            <div class="editor-header">
+                <div class="editor-title">Редактор кода</div>
+                <div>
+                    <select id="language-select" class="language-selector">
+                        {% for i in languages %}
+                            <option value="{{ i.language }}">{{ i.get_language_display }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
+            <div id="editor" class="editor-wrapper"></div>
         </div>
-        <div id="console-output" class="console-content">> Готов к выполнению кода...</div>
+
+        <!-- Правая нижняя часть: Консоль -->
+        <div class="console-container">
+            <div class="console-header">
+                <div class="console-title">Консоль выполнения</div>
+                <div class="console-controls">
+                    <button id="run-button">Запустить</button>
+                    <button id="submit-button">Отправить</button>
+                </div>
+            </div>
+            <div id="console-output" class="console-content">> Готов к выполнению кода...</div>
+        </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.34.0/min/vs/loader.js"></script>
-<script>
-    require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.34.0/min/vs' } });
-    require(["vs/editor/editor.main"], function () {
-        window.editor = monaco.editor.create(document.getElementById('editor'), {
-            value: `{{ task.starter_code|escapejs }}`,
-            language: 'python',
-            theme: 'vs-dark',
-            automaticLayout: true,
-            minimap: { enabled: false },
-            fontSize: 16,
-            lineNumbers: "on",
-            scrollBeyondLastLine: false,
-            padding: { top: 15 }
-        });
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.34.0/min/vs/loader.js"></script>
+    <script>
 
-        // Обработка смены языка
-        document.getElementById('language-select').addEventListener('change', function(e) {
-            var language = e.target.value;
-            monaco.editor.setModelLanguage(window.editor.getModel(), language);
-        });
+        require.config({paths: {'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.34.0/min/vs'}});
+        require(["vs/editor/editor.main"], function () {
+            window.editor = monaco.editor.create(document.getElementById('editor'), {
+                value: `{{ task.starter_code|escapejs }}`,
+                language: 'python',
+                theme: 'vs-dark',
+                automaticLayout: true,
+                minimap: {enabled: false},
+                fontSize: 16,
+                lineNumbers: "on",
+                scrollBeyondLastLine: false,
+                padding: {top: 15}
+            });
+            var language = ""
+            // Обработка смены языка
+            document.getElementById('language-select').addEventListener('change', function (e) {
+                var language = e.target.value;
+                monaco.editor.setModelLanguage(window.editor.getModel(), language);
+            });
 
-        // Обработчики кнопок
-        document.getElementById('run-button').addEventListener('click', function() {
-            const code = window.editor.getValue();
-            const output = document.getElementById('console-output');
-            // Эмуляция выполнения кода
-            setTimeout(() => {
-                output.textContent += "TEST";
-                output.scrollTop = output.scrollHeight;
-            }, 800);
-        });
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
 
-        document.getElementById('submit-button').addEventListener('click', function() {
-            const code = window.editor.getValue();
-            const output = document.getElementById('console-output');
-            output.textContent = "> Отправка решения...\n";
-            // Эмуляция отправки решения
-            setTimeout(() => {
-                output.textContent += eval(code);
-                output.scrollTop = output.scrollHeight;
-            }, 1000);
+
+            // Обработчики кнопок
+            document.getElementById('run-button').addEventListener('click', function () {
+                const code = window.editor.getValue();
+                const output = document.getElementById('console-output');
+                // Эмуляция выполнения кода
+                setTimeout(() => {
+                    output.textContent += "TEST";
+                    output.scrollTop = output.scrollHeight;
+                }, 800);
+            });
+
+            document.getElementById('submit-button').addEventListener('click', function () {
+                const code = window.editor.getValue();
+                const output = document.getElementById('console-output');
+                output.textContent = "> Отправка решения...\n";
+                fetch("/submit/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json", "X-CSRFToken": getCookie('csrftoken')
+
+                    },
+                    body: JSON.stringify({
+                        task_id: {{ task.id }},
+                        source_code: window.editor.getValue(),
+                        language: 71
+                    })
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        output.textContent = res.result
+                    })
+            });
         });
-    });
-</script>
+    </script>
 {% endblock %}
