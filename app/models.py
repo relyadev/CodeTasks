@@ -46,8 +46,9 @@ class Test(models.Model):
 class UserProfile(models.Model):
     resolved_task_count = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     badges = models.ManyToManyField(Badge, blank=True)
+    user_picture = models.ImageField(upload_to="avatars/")
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"UserProfile for {self.user.username}"

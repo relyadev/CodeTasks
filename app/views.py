@@ -1,10 +1,10 @@
 from django.core.exceptions import PermissionDenied
-from django.http import HttpRequest
-from django.shortcuts import redirect, render
+from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.shortcuts import redirect, render, get_object_or_404
 from django_ratelimit.decorators import ratelimit
-
+import requests
 from app.forms import RegistrationForm, EditProfileForm
-from .models import UserProfile, User, News, Test
+from .models import UserProfile, User, News, Test, Task, Language, Solution
 
 
 def handler404(request, exception):
@@ -17,7 +17,7 @@ def handler403(request, exception):
 
 def register(req: HttpRequest):
     if req.method == "POST":
-        form = RegistrationForm(req.POST)
+        form = RegistrationForm(req.POST, req.FILES)
         if form.is_valid():
             user = form.save()
             user.set_password(form.cleaned_data.get("password"))
@@ -108,11 +108,6 @@ def ide(request: HttpRequest, task_id):
 
 
 import json
-from django.http import HttpRequest, JsonResponse, HttpResponse
-from django.shortcuts import get_object_or_404
-import requests
-from .models import Task, Solution, Language
-
 
 def submit(req: HttpRequest):
     if req.method != "POST":
